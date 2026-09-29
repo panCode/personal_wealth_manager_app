@@ -22,6 +22,10 @@ export type ExtraSpend = { id: string; amount: number; what: string; source: "ca
 
 export type ConnectionKey = "mf" | "bank" | "loan" | "epf" | "stocks" | "insurance";
 
+export type Channel = "app" | "whatsapp" | "both";
+export type WatchKey = "decisions" | "money" | "markets" | "funds" | "deadlines" | "news";
+export const defaultChannels: Record<WatchKey, Channel> = { decisions: "both", money: "app", markets: "whatsapp", funds: "app", deadlines: "both", news: "app" };
+
 export type Onboarding = {
   connections: Record<ConnectionKey, boolean>;
   household: { spouse: "earns" | "not-earning" | "none"; children: number; parents: number; incomeSteady: "steady" | "variable" | "uncertain" };
@@ -54,9 +58,13 @@ type State = {
   onboarded: boolean;
   dismissedInstallBanner: boolean;
   onboarding: Onboarding;
+  channels: Record<WatchKey, Channel>;
+  quietMode: boolean;
 };
 
 type Actions = {
+  setChannel: (key: WatchKey, ch: Channel) => void;
+  setQuietMode: (on: boolean) => void;
   setOnboarding: (patch: Partial<Onboarding>) => void;
   setHydrated: () => void;
   track: (name: string, props?: AppEvent["props"]) => void;
@@ -82,6 +90,8 @@ const initial: State = {
   onboarded: false,
   dismissedInstallBanner: false,
   onboarding: defaultOnboarding,
+  channels: defaultChannels,
+  quietMode: false,
 };
 
 const now = () => new Date().toISOString();
@@ -92,6 +102,8 @@ export const useStore = create<State & Actions>()(
       ...initial,
       setHydrated: () => set({ hydrated: true }),
       setOnboarding: (patch) => set((s) => ({ onboarding: { ...s.onboarding, ...patch } })),
+      setChannel: (key, ch) => set((s) => ({ channels: { ...s.channels, [key]: ch } })),
+      setQuietMode: (on) => set({ quietMode: on }),
       track: (name, props) => set((s) => ({ events: [...s.events.slice(-499), { t: now(), name, props }] })),
       approve: (id) => {
         set((s) => ({ decisions: { ...s.decisions, [id]: { status: "approved", at: now() } } }));
@@ -125,7 +137,7 @@ export const useStore = create<State & Actions>()(
       skipHydration: true,
       merge: (persisted, current) => {
         const p = (persisted ?? {}) as Partial<State>;
-        return { ...current, ...p, onboarding: { ...defaultOnboarding, ...(p.onboarding ?? {}) } };
+        return { ...current, ...p, onboarding: { ...defaultOnboarding, ...(p.onboarding ?? {}) }, channels: { ...defaultChannels, ...(p.channels ?? {}) } };
       },
       partialize: (s) => ({
         decisions: s.decisions,
@@ -136,6 +148,8 @@ export const useStore = create<State & Actions>()(
         onboarded: s.onboarded,
         dismissedInstallBanner: s.dismissedInstallBanner,
         onboarding: s.onboarding,
+        channels: s.channels,
+        quietMode: s.quietMode,
       }),
     }
   )

@@ -96,11 +96,11 @@ export default function Ask() {
         footer={booked ? <Button onClick={() => setBook(false)} variant="dark">Done</Button> : <Button onClick={() => { setBooked(true); track("call_booked", { slot }); }}>Book it</Button>}>
         {booked ? (
           <div className="flex flex-col gap-2 rounded-card bg-accent-soft p-4 text-[14px] leading-relaxed">
-            <strong>Booked.</strong> Meera will call you {slot === "tomorrow-6" ? "tomorrow at 6:00 PM" : slot === "thu-1" ? "Thursday at 1:00 PM" : "Saturday at 11:00 AM"}. She'll have your portfolio and this conversation open. Calendar invite sent.
+            <strong>Booked.</strong> Meera will call you {slot === "tomorrow-6" ? "tomorrow at 6:00 PM" : slot === "thu-1" ? "Thursday at 1:00 PM" : "Saturday at 11:00 AM"}. She’ll have your portfolio and this conversation open. Calendar invite sent.
           </div>
         ) : (
           <>
-            <p className="text-[14px] leading-relaxed text-ink-2">Anything the app can't answer, or anything you'd rather hear from a person. No charge; it's part of the plan.</p>
+            <p className="text-[14px] leading-relaxed text-ink-2">Anything the app can’t answer, or anything you’d rather hear from a person. No charge; it’s part of the plan.</p>
             <OptionGroup
               value={slot}
               onChange={setSlot}

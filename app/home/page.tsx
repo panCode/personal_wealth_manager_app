@@ -5,7 +5,7 @@ import { BottomNav } from "@/components/BottomNav";
 import { ArrowRightIcon, BellIcon, CheckIcon, ChevronRightIcon, ClockIcon, DocIcon, GrowthIcon, SwapIcon } from "@/components/icons";
 import { Avatar, Card, DarkCard, Eyebrow, IconBox, Pill, ProgressBar, Row, RowText, Screen, SectionTitle } from "@/components/ui";
 import { decisions } from "@/lib/decisions";
-import { inr, inrFull, monthYear } from "@/lib/format";
+import { dayLine, greeting, inr, inrFull, monthYear } from "@/lib/format";
 import { useGoals } from "@/lib/useGoals";
 import { persona } from "@/lib/persona";
 import { useStore } from "@/lib/store";
@@ -19,6 +19,11 @@ export default function Home() {
   const waiting = rebalance === "proposed" ? 1 : 0;
   const d = decisions["rebalance-1"];
   const goals = useGoals();
+  // `hydrated` flips only on the client after mount, so reading the clock here
+  // never disagrees with the server-rendered HTML.
+  const hydrated = useStore((s) => s.hydrated);
+  const today = hydrated ? dayLine() : "";
+  const hello = hydrated ? greeting() : "Hello";
   const emergencyBy = monthYear(`${goals.emergency.reach.year}-${String(goals.emergency.reach.month).padStart(2, "0")}-01`);
   const retireShort = stepup === "proposed" ? goals.retire.shortBy : 0;
 
@@ -29,8 +34,8 @@ export default function Home() {
           {/* Header */}
           <div className="flex items-center justify-between">
             <div className="flex flex-col gap-0.5">
-              <span className="text-[13px] text-muted">Sunday, 27 Sep</span>
-              <span className="font-display text-[24px]">Good evening, {p.firstName}</span>
+              <span className="min-h-[18px] text-[13px] text-muted">{today}</span>
+              <span className="font-display text-[24px]">{hello}, {p.firstName}</span>
             </div>
             <div className="flex items-center gap-2">
               <Link href="/notifications" aria-label={`Notifications, ${waiting} need you`} className="relative flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink">
@@ -39,7 +44,7 @@ export default function Home() {
                   <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-attn px-1 text-[11px] font-bold text-white">{waiting}</span>
                 )}
               </Link>
-              <Avatar initials={p.initials} size={40} dark />
+              <Link href="/settings" aria-label="Prototype settings"><Avatar initials={p.initials} size={40} dark /></Link>
             </div>
           </div>
 
@@ -80,7 +85,7 @@ export default function Home() {
               <IconBox tone="accent" size={32}><CheckIcon size={16} /></IconBox>
               <div className="flex flex-1 flex-col gap-0.5">
                 <span className="text-[13px] font-bold">Rebalance placed. Settles by 1 Oct.</span>
-                <span className="text-[12px] text-muted">We'll message you when the units land.</span>
+                <span className="text-[12px] text-muted">We’ll message you when the units land.</span>
               </div>
               <ChevronRightIcon size={18} className="text-muted" />
             </Link>
@@ -139,7 +144,7 @@ export default function Home() {
                 <Pill>Mar 2027</Pill>
               </Row>
             </Card>
-            <span className="text-[12px] leading-[1.45] text-muted">Every day we watch your funds, SIPs, EMIs and tax rules. You only hear from us when there's a decision worth your minute.</span>
+            <span className="text-[12px] leading-[1.45] text-muted">Every day we watch your funds, SIPs, EMIs and tax rules. You only hear from us when there’s a decision worth your minute.</span>
           </div>
 
           {/* Health strip */}

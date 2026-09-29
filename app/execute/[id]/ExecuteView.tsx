@@ -60,7 +60,7 @@ export function ExecuteView({ decision: d }: { decision: Decision }) {
       <TopBar back={`/decision/${d.id}`} label={`Confirm · ${d.kind === "rebalance" ? "Switch order" : d.kind === "sip-change" ? "Mandate change" : "Order"}`} />
       <Screen>
         <div className="flex flex-col gap-[18px] px-6 pb-4 pt-2">
-          <h1 className="font-display text-[26px] leading-[1.15]">One OTP and it's placed</h1>
+          <h1 className="font-display text-[26px] leading-[1.15]">One OTP and it’s placed</h1>
 
           <Card padded={false}>
             {d.legs.map((leg, i) => (
@@ -107,7 +107,7 @@ export function ExecuteView({ decision: d }: { decision: Decision }) {
               ))}
             </div>
             <div className="flex items-center justify-between gap-3">
-              <span className="text-[12px] text-muted">The exchange sends it, not us. That's the 2FA SEBI requires. Any 6 digits work in this prototype.</span>
+              <span className="text-[12px] text-muted">The exchange sends it, not us. That’s the 2FA SEBI requires. Any 6 digits work in this prototype.</span>
               <button type="button" className="whitespace-nowrap text-[12px] font-bold text-accent" onClick={() => setDigits(["4", "8", "2", "9", "1", "7"])}>
                 Resend
               </button>

@@ -126,7 +126,7 @@ export default function About() {
                   <QRow id="emi" label="Rent or EMIs" value={ob.expenses.emi} onChange={(n) => setOnboarding({ expenses: { ...ob.expenses, emi: n } })} />
                   <QRow id="hh" label="Household, bills, school" value={ob.expenses.household} onChange={(n) => setOnboarding({ expenses: { ...ob.expenses, household: n } })} />
                   <QRow id="rest" label="Everything else, roughly" value={ob.expenses.rest} onChange={(n) => setOnboarding({ expenses: { ...ob.expenses, rest: n } })} />
-                  {!bank && <span className="text-[12px] text-muted">Not sure? Families like yours in Bengaluru spend about ₹15–20k here. We'll tighten this from your UPI and card statements later.</span>}
+                  {!bank && <span className="text-[12px] text-muted">Not sure? Families like yours in Bengaluru spend about ₹15–20k here. We’ll tighten this from your UPI and card statements later.</span>}
                 </>
               )}
               <div className="flex items-center justify-between border-t border-sunken pt-2">
@@ -146,7 +146,7 @@ export default function About() {
             </span>
           </div>
 
-          {surplus < 10_000 && <Note tone="attn">That leaves very little for goals. That's fine to start; the plan will be about protection first, growth later.</Note>}
+          {surplus < 10_000 && <Note tone="attn">That leaves very little for goals. That’s fine to start; the plan will be about protection first, growth later.</Note>}
         </div>
       </Screen>
       <Footer>

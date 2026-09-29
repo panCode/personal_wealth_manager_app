@@ -46,3 +46,19 @@ export function dayMonth(iso: string): string {
   const d = new Date(iso);
   return `${d.getDate()} ${MONTHS[d.getMonth()]}`;
 }
+
+const DAYS = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+
+/** "Tuesday, 29 Sep" for the given date (defaults to now). Client-only callers. */
+export function dayLine(d = new Date()): string {
+  return `${DAYS[d.getDay()]}, ${d.getDate()} ${MONTHS[d.getMonth()]}`;
+}
+
+/** Time-of-day greeting. Client-only callers. */
+export function greeting(d = new Date()): string {
+  const h = d.getHours();
+  if (h < 5) return "Still up";
+  if (h < 12) return "Good morning";
+  if (h < 17) return "Good afternoon";
+  return "Good evening";
+}

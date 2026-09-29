@@ -140,6 +140,34 @@ export const decisions: Record<string, Decision> = {
     activityTitle: "Prepaid ₹1.9L of the home loan, topped up emergency fund",
     approvedToast: "Approved. Prepayment request sent to SBI.",
   },
+  "car-1": {
+    id: "car-1",
+    kind: "prepay",
+    eyebrow: "Decision · Big purchase",
+    title: "Buy the ₹12L car: ₹3L from the home bucket, ₹14,600 a month from January",
+    summary: "Fund the car without touching the emergency fund or retirement",
+    why: "You said the home can wait two years. So the down payment comes from the short-duration debt fund in the home bucket, and the EMI comes out of the home SIP, not the emergency fund and not retirement.",
+    reviewedBy: "Meera Iyer",
+    reviewedOn: "2026-09-29",
+    takes: "takes 2 min",
+    facts: [
+      { label: "Bigger home", value: "2033", sub: "Two years later than planned" },
+      { label: "Everything else", value: "Unchanged", sub: "Emergency fund and retirement stay on plan" },
+    ],
+    ifApproved: [
+      "In December we redeem ₹3L from the short-duration debt fund into your savings account.",
+      "The home SIP drops from ₹28,000 to ₹13,400 from January, for 7 years.",
+      "We pre-check two car loans at 9.2% or under and send you the better one.",
+    ],
+    legs: [
+      { side: "sell", name: "Short-duration Debt Fund", sub: "Home bucket · redeemed to HDFC savings in December", amount: 300_000 },
+      { side: "set", name: "Home down-payment SIP", sub: "Balanced funds · ₹28,000 → ₹13,400 from January", amount: 13_400 },
+    ],
+    rail: "BSE StAR MF + eNACH",
+    settleDays: 2,
+    activityTitle: "Car funded: ₹3L redeemed, home SIP reduced for 7 years",
+    approvedToast: "Approved. We'll redeem ₹3L in December and reset the home SIP in January.",
+  },
 };
 
 export function getDecision(id: string): Decision | undefined {

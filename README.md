@@ -33,7 +33,8 @@ npm run build && npm start
 | 1 · Core loop | Welcome → Home → Decision → Approve (OTP) → Activity, with state that survives reloads | ✅ |
 | 2 · Money | Portfolio (allocation · holdings · performance), Plan, Ask with scripted answers and call booking | ✅ |
 | 3 · Onboarding | Connect, About you (bank-connected and self-reported), Goals with the questions drawer and the "how we sized this" drawer; formulas in `lib/goals.ts` recompute live | ✅ |
-| 4 · Informed | Notifications, Spending, Scenarios, Simulate | placeholder |
+| 4 · Informed | Notifications with per-category channel settings, WhatsApp preview, Spending (label + add spends), Scenarios, simulations (car with editable inputs; house-2029, retire-55, raise, job-loss) on `lib/scenarios.ts` | ✅ |
+| 5 · Ship | Install nudge (iOS hint / Android prompt), tester settings with reset at `/settings` (tap the avatar on Home) | ✅ |
 
 ## Layout
 
@@ -42,6 +43,9 @@ app/                one folder per route
 components/         primitives (ui.tsx), BottomNav, Drawer, Feedback, PhoneFrame, icons
 lib/persona.ts      seed data — every number on every screen
 lib/decisions.ts    the decisions the CFO can bring
+lib/goals.ts        goal sizing formulas and assumptions
+lib/scenarios.ts    what-if simulations
+lib/answers.ts      scripted answers for Ask
 lib/store.ts        user state (approvals, labels, events), persisted
 lib/format.ts       ₹ formatting, Indian grouping
 spec/               the design canvas, as HTML
@@ -50,4 +54,4 @@ proxy.ts            passcode gate
 
 ## Feedback and events
 
-The floating tab on the right edge opens a feedback drawer. Notes are kept in localStorage and POSTed to `/api/feedback`, which logs them (Vercel → Logs). Every meaningful tap is recorded in the store's `events` array. To reset a tester's phone, clear the site data or use the reset control (coming with the settings screen).
+The floating tab on the right edge opens a feedback drawer. Notes are kept in localStorage and POSTed to `/api/feedback`, which logs them (Vercel → Logs). Every meaningful tap is recorded in the store's `events` array. To reset a tester's phone, tap the avatar on Home → Reset this prototype.
