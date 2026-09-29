@@ -1,36 +1,53 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Personal CFO — prototype
 
-## Getting Started
+A phone-first, installable web app (PWA) for testing the "personal wealth manager for everyone" idea with friends and investors. Fake data, real flows.
 
-First, run the development server:
+- **Stack:** Next.js 16 (App Router) · TypeScript · Tailwind v4 · Zustand (persisted to localStorage) · self-hosted Fraunces + Manrope
+- **Data:** one persona (`lib/persona.ts`), one decision catalogue (`lib/decisions.ts`). Nothing talks to a backend.
+- **Design source:** `spec/*.dc.html` — the 21 screens from the design canvas, one file per screen. Port from these.
+
+## Run locally
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
+npm run build && npm start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Deploy (Vercel)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Import this repo in Vercel (Add New → Project). Defaults are fine.
+2. Optional: set `PASSCODE` in Project → Settings → Environment Variables to gate the link. Share it as `https://<your-app>.vercel.app/?key=<passcode>` and friends never see the gate. Leave unset to open it to anyone with the link.
+3. Every push to `main` redeploys.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Install on a phone
 
-## Learn More
+- **iPhone:** open the link in Safari → Share → *Add to Home Screen*.
+- **Android:** Chrome shows an install prompt, or ⋮ → *Add to Home screen*.
 
-To learn more about Next.js, take a look at the following resources:
+## What works today
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| Step | Screens | Status |
+|---|---|---|
+| 0 · Shell | PWA manifest, service worker, iOS meta, phone frame, tokens, primitives, passcode gate, feedback pill | ✅ |
+| 1 · Core loop | Welcome → Home → Decision → Approve (OTP) → Activity, with state that survives reloads | ✅ |
+| 2 · Money | Portfolio (3 tabs), Plan, Ask | placeholder |
+| 3 · Onboarding | Connect, About you (2 states), Goals + drawers | placeholder |
+| 4 · Informed | Notifications, Spending, Scenarios, Simulate | placeholder |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Layout
 
-## Deploy on Vercel
+```
+app/                one folder per route
+components/         primitives (ui.tsx), BottomNav, Drawer, Feedback, PhoneFrame, icons
+lib/persona.ts      seed data — every number on every screen
+lib/decisions.ts    the decisions the CFO can bring
+lib/store.ts        user state (approvals, labels, events), persisted
+lib/format.ts       ₹ formatting, Indian grouping
+spec/               the design canvas, as HTML
+proxy.ts            passcode gate
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Feedback and events
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+The floating tab on the right edge opens a feedback drawer. Notes are kept in localStorage and POSTed to `/api/feedback`, which logs them (Vercel → Logs). Every meaningful tap is recorded in the store's `events` array. To reset a tester's phone, clear the site data or use the reset control (coming with the settings screen).

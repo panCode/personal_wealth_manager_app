@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Portfolio performance</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Manrope,system-ui,sans-serif;background:#F4F1EA;color:#16201D}
+a{color:#0E6B55;text-decoration:none}a:hover{color:#0A5241}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #F4F1EA; color: #16201D; font-family: Manrope, system-ui, sans-serif; overflow: hidden">
+  <div style="flex-grow: 1; overflow: auto; display: flex; flex-direction: column; padding: 56px 20px 16px; gap: 14px">
+    <div style="display: flex; flex-direction: column; gap: 4px">
+      <h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 500; font-size: 26px">Portfolio</h1>
+      <div style="display: flex; align-items: baseline; gap: 10px">
+        <span style="font-family: Fraunces, Georgia, serif; font-size: 32px; font-weight: 500">₹90.9L</span>
+        <span style="font-size: 13px; color: #0E6B55; font-weight: 700">+₹22.7L on ₹68.2L put in</span>
+      </div>
+      <span style="font-size: 12px; color: #5C6663">Money-weighted return (XIRR), after all fees.</span>
+    </div>
+
+    <div style="display: flex; padding: 4px; background: #EEEBE3; border-radius: 12px">
+      <a href="Portfolio.dc.html" style="flex-grow: 1; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 9px; font-size: 13px; font-weight: 600; color: #5C6663">Allocation</a>
+      <a href="PortfolioHoldings.dc.html" style="flex-grow: 1; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 9px; font-size: 13px; font-weight: 600; color: #5C6663">Holdings</a>
+      <span aria-current="page" style="flex-grow: 1; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: 9px; background: #FFFFFF; font-size: 13px; font-weight: 700; color: #16201D">Performance</span>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 12px; padding: 16px; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px">
+      <div style="display: flex; align-items: center; justify-content: space-between">
+        <div style="display: flex; gap: 6px">
+          <button type="button" aria-pressed="false" style="height: 30px; padding: 0 10px; border: 1px solid #CFC9BD; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #16201D; font-family: Manrope, system-ui, sans-serif">1Y</button>
+          <button type="button" aria-pressed="true" style="height: 30px; padding: 0 10px; border: 2px solid #0E6B55; border-radius: 999px; background: #E3F0EA; font-size: 12px; font-weight: 700; color: #16201D; font-family: Manrope, system-ui, sans-serif">3Y</button>
+          <button type="button" aria-pressed="false" style="height: 30px; padding: 0 10px; border: 1px solid #CFC9BD; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #16201D; font-family: Manrope, system-ui, sans-serif">5Y</button>
+          <button type="button" aria-pressed="false" style="height: 30px; padding: 0 10px; border: 1px solid #CFC9BD; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #16201D; font-family: Manrope, system-ui, sans-serif">All</button>
+        </div>
+      </div>
+      <div style="display: flex; gap: 14px; font-size: 12px">
+        <span style="display: flex; align-items: center; gap: 6px"><span style="width: 14px; height: 3px; border-radius: 2px; background: #0E6B55"></span><strong>You 14.2%</strong> a year</span>
+        <span style="display: flex; align-items: center; gap: 6px; color: #5C6663"><span style="width: 14px; height: 0; border-top: 3px dashed #8A948F"></span>Nifty 50 12.9%</span>
+      </div>
+      <svg width="350" height="150" viewBox="0 0 350 150" fill="none" role="img" aria-label="Your portfolio versus Nifty 50 over three years, both rising, yours slightly higher">
+        <line x1="10" y1="130" x2="340" y2="130" stroke="#EEEBE3" stroke-width="1"></line>
+        <line x1="10" y1="75" x2="340" y2="75" stroke="#EEEBE3" stroke-width="1"></line>
+        <line x1="10" y1="20" x2="340" y2="20" stroke="#EEEBE3" stroke-width="1"></line>
+        <text x="342" y="134" font-size="10" fill="#8A948F" font-family="Manrope, system-ui, sans-serif" text-anchor="start">100</text>
+        <text x="342" y="24" font-size="10" fill="#8A948F" font-family="Manrope, system-ui, sans-serif" text-anchor="start">150</text>
+        <polyline points="10,130 37.5,126.7 65,131.1 92.5,123.4 120,117.9 147.5,121.2 175,113.5 202.5,106.9 230,102.5 257.5,105.8 285,93.7 312.5,88.2 340,81.6" stroke="#8A948F" stroke-width="2" stroke-dasharray="5 4" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        <polyline points="10,130 37.5,125.6 65,128.9 92.5,121.2 120,114.6 147.5,117.9 175,109.1 202.5,101.4 230,95.9 257.5,99.2 285,88.2 312.5,82.7 340,76.1" stroke="#0E6B55" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></polyline>
+        <circle cx="340" cy="76.1" r="4" fill="#0E6B55"></circle>
+        <text x="10" y="146" font-size="10" fill="#8A948F" font-family="Manrope, system-ui, sans-serif">Sep 2023</text>
+        <text x="340" y="146" font-size="10" fill="#8A948F" font-family="Manrope, system-ui, sans-serif" text-anchor="end">Sep 2026</text>
+      </svg>
+      <span style="font-size: 12px; line-height: 1.45; color: #5C6663">₹100 became ₹149 with you, ₹144 in Nifty 50. Nifty is shown for the equity part only; debt, EPF and PPF are judged against their own benchmarks.</span>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px">
+      <div style="display: flex; flex-direction: column; gap: 2px; padding: 12px; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 12px">
+        <span style="font-size: 11px; font-weight: 600; color: #5C6663">Put in</span>
+        <span style="font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 500">₹68.2L</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px; padding: 12px; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 12px">
+        <span style="font-size: 11px; font-weight: 600; color: #5C6663">Gained</span>
+        <span style="font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 500; color: #0E6B55">₹22.7L</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 2px; padding: 12px; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 12px">
+        <span style="font-size: 11px; font-weight: 600; color: #5C6663">Fees paid</span>
+        <span style="font-family: Fraunces, Georgia, serif; font-size: 20px; font-weight: 500">₹1.1L</span>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 14px; font-weight: 700">What moved it, last 3 years</span>
+      <div style="display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px; overflow: hidden">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid #EEEBE3">
+          <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 13px; font-weight: 700">Midcap Opportunities Fund</span>
+            <span style="font-size: 12px; color: #5C6663">Best performer · 21.0% a year</span>
+          </div>
+          <span style="font-size: 13px; font-weight: 700; color: #0E6B55">+₹2.4L</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid #EEEBE3">
+          <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 13px; font-weight: 700">Flexi-cap Fund</span>
+            <span style="font-size: 12px; color: #5C6663">Steady · 18.4% a year, low drawdown</span>
+          </div>
+          <span style="font-size: 13px; font-weight: 700; color: #0E6B55">+₹2.1L</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid #EEEBE3">
+          <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 13px; font-weight: 700">Tax Saver, regular plan</span>
+            <span style="font-size: 12px; color: #5C6663">Fee drag vs the direct plan of the same fund</span>
+          </div>
+          <span style="font-size: 13px; font-weight: 700; color: #A8322B">−₹24k</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px">
+          <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 13px; font-weight: 700">Tata Motors</span>
+            <span style="font-size: 12px; color: #5C6663">Only holding below cost · 2% of portfolio, no action</span>
+          </div>
+          <span style="font-size: 13px; font-weight: 700; color: #A8322B">−₹13k</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 14px; font-weight: 700">By goal</span>
+      <div style="display: flex; flex-direction: column; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px; overflow: hidden">
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid #EEEBE3">
+          <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 13px; font-weight: 700">Retire well</span>
+            <span style="font-size: 12px; color: #5C6663">Equity-heavy, 29 years to go</span>
+          </div>
+          <span style="font-size: 13px; font-weight: 700">15.9% a year</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-bottom: 1px solid #EEEBE3">
+          <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 13px; font-weight: 700">Bigger home</span>
+            <span style="font-size: 12px; color: #5C6663">Balanced, shifting to debt as 2031 nears</span>
+          </div>
+          <span style="font-size: 13px; font-weight: 700">10.4% a year</span>
+        </div>
+        <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px">
+          <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
+            <span style="font-size: 13px; font-weight: 700">Emergency fund</span>
+            <span style="font-size: 12px; color: #5C6663">Liquid on purpose, safety over return</span>
+          </div>
+          <span style="font-size: 13px; font-weight: 700">6.8% a year</span>
+        </div>
+      </div>
+      <span style="font-size: 12px; line-height: 1.45; color: #5C6663">Each goal is judged against its own job, not the market. A 6.8% emergency fund is doing exactly what it should.</span>
+    </div>
+  </div>
+
+  <nav aria-label="Main" style="display: flex; justify-content: space-around; align-items: center; height: 80px; padding: 0 8px 14px; background: #FFFFFF; border-top: 1px solid #E4DFD5; flex-shrink: 0">
+    <a href="Home.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 64px; height: 52px; color: #5C6663; font-size: 11px; font-weight: 600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"></path><path d="M5 10v10h14V10"></path></svg><span>Home</span></a>
+    <a href="Portfolio.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 64px; height: 52px; color: #0E6B55; font-size: 11px; font-weight: 700">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v9l6.5 6"></path></svg><span>Portfolio</span></a>
+    <a href="Plan.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 64px; height: 52px; color: #5C6663; font-size: 11px; font-weight: 600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"></path><path d="M5 4h12l-2 4 2 4H5"></path></svg><span>Plan</span></a>
+    <a href="Ask.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 64px; height: 52px; color: #5C6663; font-size: 11px; font-weight: 600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg><span>Ask</span></a>
+    <a href="Activity.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 64px; height: 52px; color: #5C6663; font-size: 11px; font-weight: 600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>Activity</span></a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

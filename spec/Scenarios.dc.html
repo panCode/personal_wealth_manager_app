@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>What if: pick a scenario</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Manrope,system-ui,sans-serif;background:#F4F1EA;color:#16201D}
+a{color:#0E6B55;text-decoration:none}a:hover{color:#0A5241}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #F4F1EA; color: #16201D; font-family: Manrope, system-ui, sans-serif; overflow: hidden">
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 56px 20px 4px">
+    <a href="Plan.dc.html" aria-label="Back" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: #16201D">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"></path><path d="M11 6l-6 6 6 6"></path></svg>
+    </a>
+    <div style="width: 44px"></div>
+  </div>
+
+  <div style="flex-grow: 1; overflow: auto; display: flex; flex-direction: column; padding: 4px 20px 16px; gap: 18px">
+    <div style="display: flex; flex-direction: column; gap: 8px">
+      <h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 500; font-size: 30px; line-height: 1.12; letter-spacing: -0.01em">What if…</h1>
+      <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #4A5451">Try a life event on your real numbers before you decide. See what it does to each goal and to your wealth at 60.</p>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 8px; height: 52px; padding: 0 14px; background: #FFFFFF; border: 1px solid #CFC9BD; border-radius: 14px">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#5C6663" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="M20 20l-3.5-3.5"></path></svg>
+      <label for="own" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)">Describe your own scenario</label>
+      <input id="own" type="text" placeholder="Describe your own, e.g. move to Pune for a ₹30L job" style="flex-grow: 1; border: 0; outline: 0; font-size: 14px; font-family: Manrope, system-ui, sans-serif; color: #16201D; background: transparent; min-width: 0">
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5C6663">Big purchases</span>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <a href="Simulate.dc.html" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; min-height: 104px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px; color: #16201D">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E6B55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 13l2-5h14l2 5"></path><rect x="3" y="13" width="18" height="6" rx="1"></rect><circle cx="7" cy="19" r="1.5"></circle><circle cx="17" cy="19" r="1.5"></circle></svg>
+          <span style="font-size: 14px; font-weight: 700">Buy a car</span>
+          <span style="font-size: 12px; color: #5C6663">Loan or cash, new or used</span>
+        </a>
+        <a href="Simulate.dc.html" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; min-height: 104px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px; color: #16201D">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E6B55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"></path><path d="M5 10v10h14V10"></path></svg>
+          <span style="font-size: 14px; font-weight: 700">Buy the home in 2029</span>
+          <span style="font-size: 12px; color: #5C6663">Two years earlier than planned</span>
+        </a>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5C6663">Work &amp; income</span>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <a href="Simulate.dc.html" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; min-height: 104px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px; color: #16201D">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E6B55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 18l6-6 4 4 6-8"></path><path d="M16 8h4v4"></path></svg>
+          <span style="font-size: 14px; font-weight: 700">New job, +30%</span>
+          <span style="font-size: 12px; color: #5C6663">Or a raise, or ESOPs vesting</span>
+        </a>
+        <a href="Simulate.dc.html" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; min-height: 104px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px; color: #16201D">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B4540A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6l6 6-4 4 6 8"></path><path d="M20 6l-6 6 4 4-6 8"></path></svg>
+          <span style="font-size: 14px; font-weight: 700">No income for 6 months</span>
+          <span style="font-size: 12px; color: #5C6663">Layoff, sabbatical, or starting up</span>
+        </a>
+        <a href="Simulate.dc.html" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; min-height: 104px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px; color: #16201D">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E6B55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18"></path><path d="M17 8a4 4 0 0 0-4-3H10a3 3 0 0 0 0 6h4a3 3 0 0 1 0 6h-3a4 4 0 0 1-4-3"></path></svg>
+          <span style="font-size: 14px; font-weight: 700">₹5L bonus lands</span>
+          <span style="font-size: 12px; color: #5C6663">Prepay, invest, or spend</span>
+        </a>
+        <a href="Simulate.dc.html" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; min-height: 104px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px; color: #16201D">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E6B55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg>
+          <span style="font-size: 14px; font-weight: 700">Retire at 55</span>
+          <span style="font-size: 12px; color: #5C6663">Five years earlier</span>
+        </a>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5C6663">Family</span>
+      <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px">
+        <a href="Simulate.dc.html" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; min-height: 104px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px; color: #16201D">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#0E6B55" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.5"></circle><path d="M2.5 20a6.5 6.5 0 0 1 13 0"></path><path d="M16 4.5a3.5 3.5 0 0 1 0 7"></path><path d="M17 13.5a6.5 6.5 0 0 1 4.5 6.5"></path></svg>
+          <span style="font-size: 14px; font-weight: 700">Second child</span>
+          <span style="font-size: 12px; color: #5C6663">Costs now, education later</span>
+        </a>
+        <a href="Simulate.dc.html" style="display: flex; flex-direction: column; gap: 8px; padding: 14px; min-height: 104px; box-sizing: border-box; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px; color: #16201D">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#B4540A" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"></path><path d="M12 8v5"></path><path d="M12 16h.01"></path></svg>
+          <span style="font-size: 14px; font-weight: 700">₹15L medical bill</span>
+          <span style="font-size: 12px; color: #5C6663">A parent, beyond insurance</span>
+        </a>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 6px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5C6663">Saved scenarios</span>
+      <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px">
+        <div style="flex-grow: 1; display: flex; flex-direction: column; gap: 2px">
+          <span style="font-size: 13px; font-weight: 700">Prepay ₹1.9L of the home loan</span>
+          <span style="font-size: 12px; color: #5C6663">From the Ask screen · saved 27 Sep · became a decision</span>
+        </div>
+        <span style="height: 24px; padding: 0 10px; display: flex; align-items: center; border-radius: 999px; background: #E3F0EA; color: #0E6B55; font-size: 11px; font-weight: 700">Approved</span>
+      </div>
+    </div>
+  </div>
+
+  <nav aria-label="Main" style="display: flex; justify-content: space-around; align-items: center; height: 80px; padding: 0 8px 14px; background: #FFFFFF; border-top: 1px solid #E4DFD5; flex-shrink: 0">
+    <a href="Home.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 64px; height: 52px; color: #5C6663; font-size: 11px; font-weight: 600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-8 9 8"></path><path d="M5 10v10h14V10"></path></svg><span>Home</span></a>
+    <a href="Portfolio.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 64px; height: 52px; color: #5C6663; font-size: 11px; font-weight: 600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 3v9l6.5 6"></path></svg><span>Portfolio</span></a>
+    <a href="Plan.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 64px; height: 52px; color: #0E6B55; font-size: 11px; font-weight: 700">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21V4"></path><path d="M5 4h12l-2 4 2 4H5"></path></svg><span>Plan</span></a>
+    <a href="Ask.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 64px; height: 52px; color: #5C6663; font-size: 11px; font-weight: 600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"></path></svg><span>Ask</span></a>
+    <a href="Activity.dc.html" style="display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px; width: 64px; height: 52px; color: #5C6663; font-size: 11px; font-weight: 600">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"></circle><path d="M12 7v5l3 2"></path></svg><span>Activity</span></a>
+  </nav>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

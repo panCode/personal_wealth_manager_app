@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>About you, no bank connected</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0;font-family:Manrope,system-ui,sans-serif;background:#F4F1EA;color:#16201D}
+a{color:#0E6B55;text-decoration:none}a:hover{color:#0A5241}
+</style>
+</helmet>
+<div style="width: 390px; height: 844px; box-sizing: border-box; display: flex; flex-direction: column; background: #F4F1EA; color: #16201D; font-family: Manrope, system-ui, sans-serif; overflow: hidden">
+  <div style="display: flex; align-items: center; justify-content: space-between; padding: 56px 20px 8px">
+    <a href="Connect.dc.html" aria-label="Back" style="width: 44px; height: 44px; display: flex; align-items: center; justify-content: center; border-radius: 12px; color: #16201D">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5"></path><path d="M11 6l-6 6 6 6"></path></svg>
+    </a>
+    <span style="font-size: 13px; font-weight: 600; color: #5C6663">Step 2 of 3</span>
+    <div style="width: 44px"></div>
+  </div>
+  <div style="flex-grow: 1; overflow: auto; display: flex; flex-direction: column; padding: 8px 24px 24px; gap: 20px">
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <h1 style="margin: 0; font-family: Fraunces, Georgia, serif; font-weight: 500; font-size: 30px; line-height: 1.12; letter-spacing: -0.01em">Tell us about your household</h1>
+      <p style="margin: 0; font-size: 15px; line-height: 1.5; color: #4A5451">Rough numbers are fine. We refine them as SIPs, bills and salary show up.</p>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px; padding: 12px 14px; background: #FBEBD9; border: 1px solid #F0CFA8; border-radius: 12px">
+      <span style="font-size: 12px; line-height: 1.45; color: #16201D; flex-grow: 1">No bank connected, so income and spending are self-reported. Estimates carry a wider margin until you connect one.</span>
+      <a href="Connect.dc.html" style="height: 34px; padding: 0 12px; display: flex; align-items: center; border-radius: 9px; background: #16201D; color: #FFFFFF; font-size: 12px; font-weight: 700; flex-shrink: 0">Connect</a>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5C6663">Who depends on you</span>
+      <div style="display: flex; flex-direction: column; gap: 8px; padding: 14px 16px; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px">
+          <span style="font-size: 14px; font-weight: 600">Spouse</span>
+          <div style="display: flex; gap: 6px">
+            <button type="button" aria-pressed="true" style="height: 34px; padding: 0 12px; border: 2px solid #0E6B55; border-radius: 999px; background: #E3F0EA; font-size: 12px; font-weight: 700; color: #16201D; font-family: Manrope, system-ui, sans-serif">Earns</button>
+            <button type="button" aria-pressed="false" style="height: 34px; padding: 0 12px; border: 1px solid #CFC9BD; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #16201D; font-family: Manrope, system-ui, sans-serif">Doesn't earn</button>
+            <button type="button" aria-pressed="false" style="height: 34px; padding: 0 12px; border: 1px solid #CFC9BD; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #16201D; font-family: Manrope, system-ui, sans-serif">None</button>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1px solid #EEEBE3">
+          <span style="font-size: 14px; font-weight: 600">Children</span>
+          <div style="display: flex; align-items: center; gap: 10px">
+            <button type="button" aria-label="Fewer children" style="width: 34px; height: 34px; border: 1px solid #CFC9BD; border-radius: 999px; background: #FFFFFF; font-size: 16px; font-weight: 700; color: #16201D; font-family: Manrope, system-ui, sans-serif">−</button>
+            <span style="width: 20px; text-align: center; font-size: 15px; font-weight: 700">1</span>
+            <button type="button" aria-label="More children" style="width: 34px; height: 34px; border: 1px solid #CFC9BD; border-radius: 999px; background: #FFFFFF; font-size: 16px; font-weight: 700; color: #16201D; font-family: Manrope, system-ui, sans-serif">+</button>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px; padding-top: 8px; border-top: 1px solid #EEEBE3">
+          <span style="font-size: 14px; font-weight: 600">Parents you support</span>
+          <div style="display: flex; gap: 6px">
+            <button type="button" aria-pressed="false" style="height: 34px; padding: 0 12px; border: 1px solid #CFC9BD; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #16201D; font-family: Manrope, system-ui, sans-serif">0</button>
+            <button type="button" aria-pressed="true" style="height: 34px; padding: 0 12px; border: 2px solid #0E6B55; border-radius: 999px; background: #E3F0EA; font-size: 12px; font-weight: 700; color: #16201D; font-family: Manrope, system-ui, sans-serif">1</button>
+            <button type="button" aria-pressed="false" style="height: 34px; padding: 0 12px; border: 1px solid #CFC9BD; border-radius: 999px; background: #FFFFFF; font-size: 12px; font-weight: 600; color: #16201D; font-family: Manrope, system-ui, sans-serif">2</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5C6663">Income</span>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px">
+        <label for="inc" style="font-size: 13px; font-weight: 600; color: #4A5451">Monthly take-home, after tax</label>
+        <div style="display: flex; align-items: center; gap: 8px; height: 48px; padding: 0 14px; border: 1px solid #CFC9BD; border-radius: 12px; background: #FFFFFF">
+          <span style="font-size: 16px; font-weight: 600; color: #4A5451">₹</span>
+          <input id="inc" type="text" value="1,45,000" style="flex-grow: 1; border: 0; outline: 0; font-size: 18px; font-weight: 600; font-family: Manrope, system-ui, sans-serif; color: #16201D; background: transparent; min-width: 0">
+          <span style="font-size: 13px; color: #5C6663">/ month</span>
+        </div>
+        <span style="font-size: 12px; color: #5C6663">Or upload a salary slip or Form 16 and we read it.</span>
+      </div>
+    </div>
+
+    <div style="display: flex; flex-direction: column; gap: 10px">
+      <span style="font-size: 12px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: #5C6663">Expenses, three quick questions</span>
+      <div style="display: flex; flex-direction: column; gap: 10px; padding: 14px 16px; background: #FFFFFF; border: 1px solid #E4DFD5; border-radius: 14px">
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+          <label for="emi" style="font-size: 13px; font-weight: 600">Rent or EMIs</label>
+          <div style="display: flex; align-items: center; gap: 6px; width: 140px; height: 40px; padding: 0 12px; border: 1px solid #CFC9BD; border-radius: 10px">
+            <span style="font-size: 14px; color: #4A5451">₹</span>
+            <input id="emi" type="text" value="38,400" style="width: 100%; border: 0; outline: 0; font-size: 15px; font-weight: 600; font-family: Manrope, system-ui, sans-serif; color: #16201D; background: transparent; min-width: 0">
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+          <label for="hh" style="font-size: 13px; font-weight: 600">Household, bills, school</label>
+          <div style="display: flex; align-items: center; gap: 6px; width: 140px; height: 40px; padding: 0 12px; border: 1px solid #CFC9BD; border-radius: 10px">
+            <span style="font-size: 14px; color: #4A5451">₹</span>
+            <input id="hh" type="text" value="28,000" style="width: 100%; border: 0; outline: 0; font-size: 15px; font-weight: 600; font-family: Manrope, system-ui, sans-serif; color: #16201D; background: transparent; min-width: 0">
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: 10px">
+          <label for="rest" style="font-size: 13px; font-weight: 600">Everything else, roughly</label>
+          <div style="display: flex; align-items: center; gap: 6px; width: 140px; height: 40px; padding: 0 12px; border: 1px solid #CFC9BD; border-radius: 10px">
+            <span style="font-size: 14px; color: #4A5451">₹</span>
+            <input id="rest" type="text" value="16,600" style="width: 100%; border: 0; outline: 0; font-size: 15px; font-weight: 600; font-family: Manrope, system-ui, sans-serif; color: #16201D; background: transparent; min-width: 0">
+          </div>
+        </div>
+        <span style="font-size: 12px; color: #5C6663">Not sure? Families like yours in Bengaluru spend about ₹15–20k here. We'll tighten this from your UPI and card statements later.</span>
+      </div>
+    </div>
+
+    <div style="display: flex; align-items: center; gap: 12px; padding: 14px 16px; background: #16201D; color: #FFFFFF; border-radius: 14px">
+      <div style="display: flex; flex-direction: column; gap: 2px; flex-grow: 1">
+        <span style="font-size: 12px; color: #B7C2BD">Left for goals each month, estimate</span>
+        <span style="font-family: Fraunces, Georgia, serif; font-size: 26px; font-weight: 500">≈ ₹62,000</span>
+      </div>
+      <span style="font-size: 12px; color: #B7C2BD; text-align: right; max-width: 140px">We'll ask you to confirm this after the first month</span>
+    </div>
+  </div>
+  <div style="padding: 12px 24px 24px; background: #F4F1EA; flex-shrink: 0">
+    <a href="Goals.dc.html" style="display: flex; align-items: center; justify-content: center; gap: 8px; height: 54px; border-radius: 14px; background: #0E6B55; color: #FFFFFF; font-size: 16px; font-weight: 700">Continue
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"></path><path d="M13 6l6 6-6 6"></path></svg>
+    </a>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"$preview":{"width":390,"height":844}}'>
+class Component extends DCLogic {
+  renderVals() { return {}; }
+}
+</script>
+</body>
+</html>

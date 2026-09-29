@@ -1,26 +1,80 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-ground: #f4f1ea;
+  --color-surface: #ffffff;
+  --color-sunken: #eeebe3;
+  --color-sunken-2: #f9f7f2;
+  --color-ink: #16201d;
+  --color-ink-2: #4a5451;
+  --color-muted: #5c6663;
+  --color-faint: #8a948f;
+  --color-line: #e4dfd5;
+  --color-line-2: #cfc9bd;
+  --color-line-3: #b9b2a4;
+  --color-accent: #0e6b55;
+  --color-accent-dark: #0a5241;
+  --color-accent-soft: #e3f0ea;
+  --color-accent-mid: #6fb79b;
+  --color-accent-pale: #d9e4df;
+  --color-accent-light: #9fd9c4;
+  --color-attn: #b4540a;
+  --color-attn-text: #8a3f06;
+  --color-attn-soft: #fbebd9;
+  --color-attn-line: #f0cfa8;
+  --color-danger: #a8322b;
+  --color-on-dark-muted: #b7c2bd;
+  --color-chat-out: #d9efe3;
+  --color-chat-bg: #ece7de;
+
+  --font-display: "Fraunces Variable", Georgia, serif;
+  --font-sans: "Manrope Variable", system-ui, sans-serif;
+
+  --radius-card: 14px;
+  --radius-card-lg: 16px;
+  --radius-btn: 14px;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+html,
+body {
+  height: 100%;
+  background: #dcd7cc;
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@media (max-width: 639px) {
+  html,
+  body {
+    background: var(--color-ground);
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* Inputs at 16px so iOS Safari does not zoom on focus */
+input,
+select,
+textarea {
+  font-size: 16px;
+}
+
+.font-display {
+  font-family: var(--font-display);
+  font-weight: 500;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  scrollbar-width: none;
+}
+
+.safe-bottom {
+  padding-bottom: max(14px, env(safe-area-inset-bottom));
+}
+.safe-top {
+  padding-top: max(56px, calc(env(safe-area-inset-top) + 16px));
 }

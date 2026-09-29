@@ -1,0 +1,261 @@
+{
+  "v": 3,
+  "attachments": {},
+  "boards": {
+    "Main.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "1 · Welcome",
+      "w": 390,
+      "x": 0,
+      "y": 0
+    },
+    "Connect.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "2 · Connect accounts",
+      "w": 390,
+      "x": 470,
+      "y": 0
+    },
+    "About.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "3a · About you (bank connected, pre-filled)",
+      "w": 390,
+      "x": 940,
+      "y": 0
+    },
+    "AboutManual.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "3b · About you (no bank, self-reported)",
+      "w": 390,
+      "x": 1410,
+      "y": 0
+    },
+    "Goals.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "4 · Goals, sized in ₹",
+      "w": 390,
+      "x": 1880,
+      "y": 0
+    },
+    "GoalAsk.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "4a · Goal drawer: questions for every goal picked (opens from any goal card)",
+      "w": 390,
+      "x": 2350,
+      "y": 0
+    },
+    "GoalSheet.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "4b · Goal drawer: how we sized this",
+      "w": 390,
+      "x": 2820,
+      "y": 0
+    },
+    "Home.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "5 · Home",
+      "w": 390,
+      "x": 3290,
+      "y": 0
+    },
+    "Decision.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "6 · Decision to approve",
+      "w": 390,
+      "x": 0,
+      "y": 1280
+    },
+    "Execute.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "6b · Approve → OTP, order placed, how money moves",
+      "w": 390,
+      "x": 470,
+      "y": 1280
+    },
+    "Portfolio.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "7 · Portfolio · Allocation tab",
+      "w": 390,
+      "x": 940,
+      "y": 1280
+    },
+    "PortfolioHoldings.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "7b · Portfolio · Holdings tab",
+      "w": 390,
+      "x": 1410,
+      "y": 1280
+    },
+    "PortfolioPerformance.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "7c · Portfolio · Performance tab",
+      "w": 390,
+      "x": 1880,
+      "y": 1280
+    },
+    "Plan.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "8 · Plan & goals",
+      "w": 390,
+      "x": 2350,
+      "y": 1280
+    },
+    "Ask.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "10 · Ask your CFO",
+      "w": 390,
+      "x": 2820,
+      "y": 1280
+    },
+    "Activity.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "11 · Activity & track record",
+      "w": 390,
+      "x": 3290,
+      "y": 1280
+    },
+    "Notifications.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "12 · Notifications & what we watch for you",
+      "w": 390,
+      "x": 0,
+      "y": 2560
+    },
+    "WhatsApp.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "13 · The same, on WhatsApp",
+      "w": 390,
+      "x": 470,
+      "y": 2560
+    },
+    "Spending.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "14 · Spending: from statements, labelled by you",
+      "w": 390,
+      "x": 940,
+      "y": 2560
+    },
+    "Scenarios.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "15 · What if: pick a life event",
+      "w": 390,
+      "x": 1410,
+      "y": 2560
+    },
+    "Simulate.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "16 · Simulation: buy a car, before vs after",
+      "w": 390,
+      "x": 1880,
+      "y": 2560
+    }
+  },
+  "createdOnFiles": {
+    "at": "2026-09-27T16:40:00Z",
+    "v": 1
+  },
+  "designSystems": [],
+  "launch": {
+    "view": "canvas"
+  },
+  "notes": {
+    "s1": {
+      "fill": "orange",
+      "text": "Sample persona: Aditya, 31, Bengaluru. Every number is illustrative.\n\nPress Play on any screen to click through: Welcome → Connect → About you → Goals → (tap Bigger home) questions → how we sized it → Home → Decision → Approve → OTP → Activity. The bottom tabs work too.\n\n3a vs 3b: same screen, two states. With a bank connected, income and expenses are pre-filled from statements; without one, the user types rough numbers and we refine later.",
+      "w": 360,
+      "x": 3760,
+      "y": 0
+    },
+    "t1": {
+      "kind": "title1",
+      "maxW": 3680,
+      "text": "Onboarding → first Home",
+      "w": 240,
+      "x": 0,
+      "y": -280
+    },
+    "t2": {
+      "kind": "title1",
+      "maxW": 3680,
+      "text": "The core loop — decide, execute, track, ask",
+      "w": 240,
+      "x": 0,
+      "y": 1000
+    },
+    "t3": {
+      "kind": "title1",
+      "maxW": 3680,
+      "text": "Keeping you informed, and what-if simulations",
+      "w": 240,
+      "x": 0,
+      "y": 2280
+    }
+  },
+  "order": [
+    "Main.dc.html",
+    "Connect.dc.html",
+    "About.dc.html",
+    "AboutManual.dc.html",
+    "Goals.dc.html",
+    "GoalAsk.dc.html",
+    "GoalSheet.dc.html",
+    "Home.dc.html",
+    "Decision.dc.html",
+    "Execute.dc.html",
+    "Portfolio.dc.html",
+    "PortfolioHoldings.dc.html",
+    "PortfolioPerformance.dc.html",
+    "Plan.dc.html",
+    "Ask.dc.html",
+    "Activity.dc.html",
+    "Notifications.dc.html",
+    "WhatsApp.dc.html",
+    "Spending.dc.html",
+    "Scenarios.dc.html",
+    "Simulate.dc.html"
+  ],
+  "pages": [],
+  "title": "Personal CFO — App Prototype"
+}
