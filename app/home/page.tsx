@@ -5,7 +5,8 @@ import { BottomNav } from "@/components/BottomNav";
 import { ArrowRightIcon, BellIcon, CheckIcon, ChevronRightIcon, ClockIcon, DocIcon, GrowthIcon, SwapIcon } from "@/components/icons";
 import { Avatar, Card, DarkCard, Eyebrow, IconBox, Pill, ProgressBar, Row, RowText, Screen, SectionTitle } from "@/components/ui";
 import { decisions } from "@/lib/decisions";
-import { inr } from "@/lib/format";
+import { inr, inrFull, monthYear } from "@/lib/format";
+import { useGoals } from "@/lib/useGoals";
 import { persona } from "@/lib/persona";
 import { useStore } from "@/lib/store";
 
@@ -17,6 +18,9 @@ export default function Home() {
   const stepup = useStore((s) => s.decisions["stepup-1"]?.status ?? "proposed");
   const waiting = rebalance === "proposed" ? 1 : 0;
   const d = decisions["rebalance-1"];
+  const goals = useGoals();
+  const emergencyBy = monthYear(`${goals.emergency.reach.year}-${String(goals.emergency.reach.month).padStart(2, "0")}-01`);
+  const retireShort = stepup === "proposed" ? goals.retire.shortBy : 0;
 
   return (
     <>
@@ -86,10 +90,15 @@ export default function Home() {
           <Card className="flex flex-col gap-3">
             <SectionTitle action={<Link href="/plan" className="text-[13px] font-bold text-accent">Full plan</Link>}>Where you stand</SectionTitle>
             {p.goals.map((g) => {
-              const behind = g.status === "behind";
-              const pct = Math.round((g.saved / g.target) * 100);
-              const label = g.id === "emergency" ? "On track · Mar 2027" : g.id === "home" ? "On track · 2031" : stepup === "proposed" ? "₹4,000 a month short" : "On track · 2055";
-              const tone = behind && stepup === "proposed" ? "attn" : "accent";
+                            const target = g.id === "emergency" ? goals.emergency.target : g.id === "home" ? goals.home.total : goals.retire.corpusToday;
+              const pct = Math.round((g.saved / target) * 100);
+              const label =
+                g.id === "emergency"
+                  ? `On track · ${emergencyBy}`
+                  : g.id === "home"
+                    ? goals.home.onTrack ? `On track · ${goals.home.reach.year}` : `${goals.home.reach.year}, a little late`
+                    : retireShort > 0 ? `${inrFull(retireShort)} a month short` : `On track · ${goals.retire.year}`;
+              const tone = (g.id === "retire" && retireShort > 0) || (g.id === "home" && !goals.home.onTrack) ? "attn" : "accent";
               return (
                 <div key={g.id} className="flex flex-col gap-1.5">
                   <div className="flex items-baseline justify-between">
@@ -98,7 +107,7 @@ export default function Home() {
                   </div>
                   <ProgressBar value={pct} tone={tone} />
                   <span className="text-[11px] text-muted">
-                    {inr(g.saved)} of {inr(g.target)} · {inr(g.sip, { compact: false })} a month{g.id === "retire" && stepup === "proposed" ? ", needs ₹26,000" : ""}
+                    {inr(g.saved)} of {inr(target)} · {inr(g.sip, { compact: false })} a month{g.id === "retire" && retireShort > 0 ? `, needs ${inrFull(goals.retire.needed)}` : ""}
                   </span>
                 </div>
               );
@@ -116,7 +125,7 @@ export default function Home() {
               </Row>
               <Row href={`/decision/stepup-1`}>
                 <IconBox><GrowthIcon size={16} /></IconBox>
-                <RowText title="Step up retirement SIP by ₹4,000 in October" sub="Timed to your salary revision. Closes the gap." />
+                <RowText title={`Step up retirement SIP by ${inrFull(Math.max(goals.retire.shortBy, 4_000))} in October`} sub="Timed to your salary revision. Closes the gap." />
                 <Pill tone="accent">{stepup === "proposed" ? "Set up" : stepup === "declined" ? "Declined" : "Done"}</Pill>
               </Row>
               <Row href="/ask">

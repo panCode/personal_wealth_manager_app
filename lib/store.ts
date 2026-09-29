@@ -20,6 +20,30 @@ export type AppEvent = { t: string; name: string; props?: Record<string, string 
 
 export type ExtraSpend = { id: string; amount: number; what: string; source: "cash" | "other-account"; recurring: boolean; at: string };
 
+export type ConnectionKey = "mf" | "bank" | "loan" | "epf" | "stocks" | "insurance";
+
+export type Onboarding = {
+  connections: Record<ConnectionKey, boolean>;
+  household: { spouse: "earns" | "not-earning" | "none"; children: number; parents: number; incomeSteady: "steady" | "variable" | "uncertain" };
+  income: number; // monthly take-home
+  expenses: { emi: number; household: number; rest: number }; // monthly
+  goalsPicked: string[];
+  home: { budgetToday: number; year: number; sellFlat: "yes" | "no" | "unsure" };
+  retire: { retireAt: number; lifestyle: "simpler" | "same" | "more" };
+  risk: "sell" | "hold" | "buy";
+};
+
+export const defaultOnboarding: Onboarding = {
+  connections: { mf: true, bank: true, loan: true, epf: false, stocks: false, insurance: false },
+  household: { spouse: "earns", children: 1, parents: 1, incomeSteady: "steady" },
+  income: 145_000,
+  expenses: { emi: 38_400, household: 28_000, rest: 16_600 },
+  goalsPicked: ["emergency", "home", "retire"],
+  home: { budgetToday: 10_000_000, year: 2031, sellFlat: "unsure" },
+  retire: { retireAt: 60, lifestyle: "same" },
+  risk: "hold",
+};
+
 type State = {
   hydrated: boolean;
   decisions: Record<string, DecisionRecord>;
@@ -29,9 +53,11 @@ type State = {
   feedback: Array<{ at: string; text: string; screen: string }>;
   onboarded: boolean;
   dismissedInstallBanner: boolean;
+  onboarding: Onboarding;
 };
 
 type Actions = {
+  setOnboarding: (patch: Partial<Onboarding>) => void;
   setHydrated: () => void;
   track: (name: string, props?: AppEvent["props"]) => void;
   approve: (id: string) => void;
@@ -55,6 +81,7 @@ const initial: State = {
   feedback: [],
   onboarded: false,
   dismissedInstallBanner: false,
+  onboarding: defaultOnboarding,
 };
 
 const now = () => new Date().toISOString();
@@ -64,6 +91,7 @@ export const useStore = create<State & Actions>()(
     (set, get) => ({
       ...initial,
       setHydrated: () => set({ hydrated: true }),
+      setOnboarding: (patch) => set((s) => ({ onboarding: { ...s.onboarding, ...patch } })),
       track: (name, props) => set((s) => ({ events: [...s.events.slice(-499), { t: now(), name, props }] })),
       approve: (id) => {
         set((s) => ({ decisions: { ...s.decisions, [id]: { status: "approved", at: now() } } }));
@@ -95,6 +123,10 @@ export const useStore = create<State & Actions>()(
       name: "cfo-prototype-v1",
       storage: createJSONStorage(() => localStorage),
       skipHydration: true,
+      merge: (persisted, current) => {
+        const p = (persisted ?? {}) as Partial<State>;
+        return { ...current, ...p, onboarding: { ...defaultOnboarding, ...(p.onboarding ?? {}) } };
+      },
       partialize: (s) => ({
         decisions: s.decisions,
         labels: s.labels,
@@ -103,6 +135,7 @@ export const useStore = create<State & Actions>()(
         feedback: s.feedback,
         onboarded: s.onboarded,
         dismissedInstallBanner: s.dismissedInstallBanner,
+        onboarding: s.onboarding,
       }),
     }
   )
