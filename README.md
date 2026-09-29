@@ -31,7 +31,7 @@ npm run build && npm start
 |---|---|---|
 | 0 · Shell | PWA manifest, service worker, iOS meta, phone frame, tokens, primitives, passcode gate, feedback pill | ✅ |
 | 1 · Core loop | Welcome → Home → Decision → Approve (OTP) → Activity, with state that survives reloads | ✅ |
-| 2 · Money | Portfolio (3 tabs), Plan, Ask | placeholder |
+| 2 · Money | Portfolio (allocation · holdings · performance), Plan, Ask with scripted answers and call booking | ✅ |
 | 3 · Onboarding | Connect, About you (2 states), Goals + drawers | placeholder |
 | 4 · Informed | Notifications, Spending, Scenarios, Simulate | placeholder |
 

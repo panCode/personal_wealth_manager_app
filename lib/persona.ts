@@ -115,10 +115,10 @@ export const persona = {
         count: 9,
         total: 4_730_000,
         holdings: [
-          { id: "bluechip", name: "Bluechip Large-cap Fund", sub: "Direct · XIRR 15.1% · SIP ₹10,000", value: 940_000, status: "action", decision: "rebalance-1" },
-          { id: "flexi", name: "Flexi-cap Fund", sub: "Direct · XIRR 18.4% · SIP ₹15,000", value: 780_000, status: "on-track" },
-          { id: "midcap", name: "Midcap Opportunities Fund", sub: "Direct · XIRR 21.0% · manager changed Aug", value: 610_000, status: "watching" },
-          { id: "taxsaver", name: "Tax Saver (regular plan)", sub: "Regular · XIRR 11.2% · lock-in to Mar 2027", value: 220_000, status: "lockin" },
+          { id: "bluechip", goal: "retire", name: "Bluechip Large-cap Fund", sub: "Direct · XIRR 15.1% · SIP ₹10,000", value: 940_000, status: "action", decision: "rebalance-1" },
+          { id: "flexi", goal: "retire", name: "Flexi-cap Fund", sub: "Direct · XIRR 18.4% · SIP ₹15,000", value: 780_000, status: "on-track" },
+          { id: "midcap", goal: "retire", name: "Midcap Opportunities Fund", sub: "Direct · XIRR 21.0% · manager changed Aug", value: 610_000, status: "watching" },
+          { id: "taxsaver", goal: "retire", name: "Tax Saver (regular plan)", sub: "Regular · XIRR 11.2% · lock-in to Mar 2027", value: 220_000, status: "lockin" },
         ],
         more: { count: 5, value: 2_180_000 },
       },
@@ -128,9 +128,9 @@ export const persona = {
         count: 3,
         total: 1_640_000,
         holdings: [
-          { id: "fd", name: "SBI fixed deposit", sub: "7.1% · matures 14 Mar 2027 · auto-renew off", value: 800_000 },
-          { id: "shortdebt", name: "Short-duration Debt Fund", sub: "Direct · XIRR 7.1% · home goal, near-term", value: 490_000 },
-          { id: "liquid", name: "Liquid Fund", sub: "Direct · XIRR 6.8% · emergency fund", value: 350_000 },
+          { id: "fd", goal: "home", name: "SBI fixed deposit", sub: "7.1% · matures 14 Mar 2027 · auto-renew off", value: 800_000 },
+          { id: "shortdebt", goal: "home", name: "Short-duration Debt Fund", sub: "Direct · XIRR 7.1% · home goal, near-term", value: 490_000 },
+          { id: "liquid", goal: "emergency", name: "Liquid Fund", sub: "Direct · XIRR 6.8% · emergency fund", value: 350_000 },
         ],
       },
       {
@@ -139,8 +139,8 @@ export const persona = {
         count: 2,
         total: 1_550_000,
         holdings: [
-          { id: "epf", name: "EPF", sub: "8.25% · ₹9,600 a month incl. employer", value: 1_210_000 },
-          { id: "ppf", name: "PPF", sub: "7.1% · matures 2038", value: 340_000 },
+          { id: "epf", goal: "retire", name: "EPF", sub: "8.25% · ₹9,600 a month incl. employer", value: 1_210_000 },
+          { id: "ppf", goal: "retire", name: "PPF", sub: "7.1% · matures 2038", value: 340_000 },
         ],
       },
       {
@@ -149,9 +149,9 @@ export const persona = {
         count: 3,
         total: 730_000,
         holdings: [
-          { id: "hdfcbank", name: "HDFC Bank", sub: "Zerodha · 180 shares · +22% since buy", value: 290_000 },
-          { id: "infy", name: "Infosys", sub: "Zerodha · 150 shares · +9% since buy", value: 240_000 },
-          { id: "tatamotors", name: "Tata Motors", sub: "Zerodha · 260 shares · −6% since buy", value: 200_000 },
+          { id: "hdfcbank", goal: "retire", name: "HDFC Bank", sub: "Zerodha · 180 shares · +22% since buy", value: 290_000 },
+          { id: "infy", goal: "retire", name: "Infosys", sub: "Zerodha · 150 shares · +9% since buy", value: 240_000 },
+          { id: "tatamotors", goal: "retire", name: "Tata Motors", sub: "Zerodha · 260 shares · −6% since buy", value: 200_000 },
         ],
       },
       {
@@ -160,11 +160,11 @@ export const persona = {
         count: 2,
         total: 450_000,
         holdings: [
-          { id: "sgb", name: "Sovereign Gold Bonds", sub: "30 g · 2.5% interest + gold price", value: 260_000 },
-          { id: "savings", name: "Savings balances", sub: "HDFC, ICICI · after this month's bills", value: 190_000 },
+          { id: "sgb", goal: "retire", name: "Sovereign Gold Bonds", sub: "30 g · 2.5% interest + gold price", value: 260_000 },
+          { id: "savings", goal: "none", name: "Savings balances", sub: "HDFC, ICICI · after this month's bills", value: 190_000 },
         ],
       },
-    ],
+    ] as PortfolioGroup[],
     movers: [
       { name: "Midcap Opportunities Fund", sub: "Best performer · 21.0% a year", amount: 240_000 },
       { name: "Flexi-cap Fund", sub: "Steady · 18.4% a year, low drawdown", amount: 210_000 },
@@ -209,5 +209,8 @@ export const persona = {
 };
 
 export type GoalStatus = "on-track" | "behind" | "done";
+export type HoldingStatus = "action" | "watching" | "on-track" | "lockin";
+export type Holding = { id: string; goal: string; name: string; sub: string; value: number; status?: HoldingStatus; decision?: string };
+export type PortfolioGroup = { key: string; label: string; count: number; total: number; holdings: Holding[]; more?: { count: number; value: number } };
 export type Persona = typeof persona;
 export type Goal = Persona["goals"][number];
