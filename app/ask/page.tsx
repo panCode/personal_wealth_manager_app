@@ -1,25 +1,39 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useRef, useState } from "react";
 import { BottomNav } from "@/components/BottomNav";
 import { Drawer } from "@/components/Drawer";
 import { SendIcon } from "@/components/icons";
 import { Avatar, Button, Chip, OptionGroup, cx } from "@/components/ui";
-import { answers, fallback, findAnswer, type Answer } from "@/lib/answers";
+import { answers, fallback, findAnswer, suggested, type Answer } from "@/lib/answers";
 import { persona } from "@/lib/persona";
 import { useStore } from "@/lib/store";
 
 type Msg = { role: "user"; text: string } | { role: "cfo"; answer: Answer | null; typing?: boolean };
 
-const starter: Msg[] = [
-  { role: "user", text: answers[0].question },
-  { role: "cfo", answer: answers[0] },
-];
+/**
+ * 10 · Ask your CFO
+ * `?q=<answer id>` seeds the chat with that answer instead of the default
+ * (Home's tax row and Plan's health row link in this way). `useSearchParams`
+ * needs a Suspense boundary above it for the static build, same as Activity.
+ */
+export default function AskPage() {
+  return (
+    <Suspense>
+      <Ask />
+    </Suspense>
+  );
+}
 
-/** 10 · Ask your CFO */
-export default function Ask() {
-  const [msgs, setMsgs] = useState<Msg[]>(starter);
+function Ask() {
+  const q = useSearchParams().get("q");
+  const seed = answers.find((a) => a.id === q) ?? answers[0];
+  const [msgs, setMsgs] = useState<Msg[]>(() => [
+    { role: "user", text: seed.question },
+    { role: "cfo", answer: seed },
+  ]);
   const [text, setText] = useState("");
   const [book, setBook] = useState(false);
   const [slot, setSlot] = useState<"tomorrow-6" | "thu-1" | "sat-11">("tomorrow-6");
@@ -28,7 +42,7 @@ export default function Ask() {
   const endRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    if (msgs.length > starter.length) endRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
+    if (msgs.length > 2) endRef.current?.scrollIntoView({ block: "end", behavior: "smooth" });
   }, [msgs]);
 
   function ask(q: string) {
@@ -42,7 +56,10 @@ export default function Ask() {
   }
 
   const askedIds = new Set(msgs.flatMap((m) => (m.role === "cfo" && m.answer ? [m.answer.id] : [])));
-  const suggestions = answers.filter((a) => !askedIds.has(a.id)).slice(0, 3);
+  const suggestions = suggested
+    .map((id) => answers.find((a) => a.id === id))
+    .filter((a): a is Answer => !!a && !askedIds.has(a.id))
+    .slice(0, 3);
 
   return (
     <>

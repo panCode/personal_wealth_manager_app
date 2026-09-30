@@ -8,6 +8,12 @@ import { cx } from "./ui";
 /**
  * Bottom drawer, scoped to the phone frame (the frame is `relative`).
  * `open` toggles it; the backdrop and the X call `onClose`.
+ *
+ * When closed, the sheet sits translated below the frame. The wrapper uses
+ * `overflow-clip` (not a scroll container) so that off-screen sheet never adds
+ * scrollable overflow that a fragment jump or `scrollIntoView` could reveal,
+ * and it goes `invisible` + `inert` once the close transition ends so nothing
+ * inside can be focused, tabbed to, or scrolled into view.
  */
 export function Drawer({
   open,
@@ -34,7 +40,11 @@ export function Drawer({
   }, [open, onClose]);
 
   return (
-    <div className={cx("absolute inset-0 z-40", !open && "pointer-events-none")} aria-hidden={!open}>
+    <div
+      className={cx("absolute inset-0 z-40 overflow-clip transition-[visibility] duration-250", !open && "pointer-events-none invisible")}
+      aria-hidden={!open}
+      inert={!open}
+    >
       <button
         type="button"
         aria-label="Close"

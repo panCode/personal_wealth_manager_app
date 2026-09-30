@@ -70,9 +70,9 @@ export default function Plan() {
                 <RowText title="Term life · ₹1 Cr" sub={p.protection.term.note} />
                 <Pill tone="accent">Adequate</Pill>
               </Row>
-              <Row href="/ask" last>
-                <RowText title="Health · ₹10L family floater" sub="Bengaluru hospital costs suggest a ₹25L top-up" />
-                <Pill tone="attn">Top-up</Pill>
+              <Row href="/ask?q=insurance" last>
+                <RowText title="Health · ₹10L family floater" sub="₹25L super top-up issued 6 Sep. Renews 3 Sep 2027." />
+                <Pill tone="accent">Done</Pill>
               </Row>
             </Card>
           </div>

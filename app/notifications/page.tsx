@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { CheckIcon, ClockIcon, DocIcon, EyeIcon, GearIcon, PeopleIcon } from "@/components/icons";
 import { Button, Card, Chip, Eyebrow, IconBox, Pill, Row, RowText, Screen, TopBar, cx } from "@/components/ui";
 import { decisions } from "@/lib/decisions";
+import { scrollToWithin } from "@/lib/scroll";
 import { useStore, type Channel, type WatchKey } from "@/lib/store";
 
 type Filter = "all" | "needs" | "watching" | "done";
@@ -28,13 +29,23 @@ export default function Notifications() {
   const quiet = useStore((s) => s.quietMode);
   const setChannel = useStore((s) => s.setChannel);
   const setQuietMode = useStore((s) => s.setQuietMode);
+  const watchRef = useRef<HTMLDivElement | null>(null);
+  const showWatch = () => scrollToWithin(watchRef.current);
 
   const needs = ["rebalance-1"].filter((id) => !live[id] || live[id].status === "proposed");
   const doneLive = Object.entries(live).filter(([id, r]) => decisions[id] && r.status !== "declined");
 
   return (
     <>
-      <TopBar back="/home" title="Notifications" right={<a href="#watch" aria-label="What we watch settings" className="flex h-11 w-11 items-center justify-center rounded-xl text-ink"><GearIcon size={22} /></a>} />
+      <TopBar
+        back="/home"
+        title="Notifications"
+        right={
+          <button type="button" onClick={showWatch} aria-label="What we watch settings" className="flex h-11 w-11 items-center justify-center rounded-xl text-ink">
+            <GearIcon size={22} />
+          </button>
+        }
+      />
       <Screen>
         <div className="flex flex-col gap-4 px-5 pb-4 pt-1">
           <div className="flex gap-2 overflow-x-auto no-scrollbar">
@@ -90,7 +101,7 @@ export default function Notifications() {
             </div>
           )}
 
-          <div id="watch" className="flex flex-col gap-2.5 pt-1.5">
+          <div ref={watchRef} id="watch" className="flex flex-col gap-2.5 pt-1.5">
             <div className="flex flex-col gap-0.5">
               <span className="text-[14px] font-bold">What we watch for you, and where we tell you</span>
               <span className="text-[12px] text-muted">We track these on your behalf. You hear from us only when one matters to your plan. Tap a channel to change it.</span>
@@ -122,6 +133,7 @@ export default function Notifications() {
               </button>
             </Card>
             <Button href="/whatsapp" variant="secondary" size="md">See how it looks on WhatsApp</Button>
+            <Button href="/settings" variant="ghost" size="md">Prototype settings and reset</Button>
           </div>
         </div>
       </Screen>

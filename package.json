@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "check:ask": "npx --yes tsx scripts/check-ask-matching.ts"
   },
   "dependencies": {
     "@fontsource-variable/fraunces": "^5.3.0",

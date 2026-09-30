@@ -43,10 +43,41 @@ export const persona = {
   loans: [{ id: "home", label: "Home loan", lender: "SBI", outstanding: 4_230_000, rate: 8.6, emi: 38_400, yearsLeft: 14, dueDay: 5 }],
 
   protection: {
-    term: { cover: 10_000_000, note: "Covers the loan and 12 years of family expenses" },
-    health: { cover: 1_000_000, topUpSuggested: 2_500_000, topUpIssued: true },
+    term: { cover: 10_000_000, premiumYear: 12_000, note: "Covers the loan and 12 years of family expenses" },
+    health: { cover: 1_000_000, premiumYear: 22_000, topUpSuggested: 2_500_000, topUpIssued: true, topUpPremiumYear: 4_500, topUpRenews: "2027-09-03" },
   },
   tax: { savedFY: 46_800, morePossible: 31_000, notes: "NPS 80CCD(1B), HRA you're not claiming" },
+
+  /**
+   * Cards. Reward rates are illustrative; `genericName` is the brand-free
+   * wording if the names ever need to go. The app earns nothing from any card.
+   * `spend` is September's card-able spend: all of lifestyle (₹9,900) plus
+   * ₹20,000 of household & bills (₹24,100); the rest is cash and UPI to people.
+   */
+  cards: {
+    current: { name: "ICICI Coral", genericName: "your current card", rewardRate: 0.005, feeYear: 500, monthlyValue: 150 },
+    suggested: {
+      name: "Axis Ace",
+      genericName: "a flat 2% cashback card",
+      baseRate: 0.02,
+      feeYear: 499,
+      feeWaivedAbove: 200_000,
+      monthlyValue: 850,
+      tiers: [
+        { key: "utilities", rate: 0.05 },
+        { key: "food", rate: 0.04 },
+      ],
+    },
+    spend: [
+      { key: "groceries", label: "Groceries", amount: 8_000 },
+      { key: "utilities", label: "Utility bills", amount: 5_500 },
+      { key: "food", label: "Food delivery", amount: 4_200 },
+      { key: "subs", label: "Subscriptions", amount: 2_150 },
+      { key: "dining", label: "Dining out", amount: 3_550 },
+      { key: "fuel", label: "Fuel & commute", amount: 3_500 },
+      { key: "shopping", label: "Shopping & pharmacy", amount: 3_000 },
+    ],
+  },
 
   goals: [
     {

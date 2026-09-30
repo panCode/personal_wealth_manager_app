@@ -19,10 +19,17 @@ export function DecisionView({ decision: d }: { decision: Decision }) {
 
   const done = status !== "proposed";
 
+  // Return to whichever screen opened this decision. Direct opens (notification
+  // link, fresh PWA launch) have no history, so fall back to Home.
+  function close() {
+    if (window.history.length > 1) router.back();
+    else router.push("/home");
+  }
+
   return (
     <>
       <TopBar
-        close="/home"
+        onClose={close}
         label={
           <span className="flex items-center gap-1.5 text-attn-text">
             <span className="h-2 w-2 rounded-full bg-attn" />
@@ -100,7 +107,7 @@ export function DecisionView({ decision: d }: { decision: Decision }) {
                 className="flex-1"
                 onClick={() => {
                   track("decision_deferred", { id: d.id });
-                  router.push("/home");
+                  close();
                 }}
               >
                 Not now

@@ -18,19 +18,27 @@ export function TopBar({
   title,
   right,
   close,
+  onClose,
   label,
 }: {
   back?: string;
   close?: string;
+  /** Close handler instead of a fixed href, e.g. to return to wherever the user came from. */
+  onClose?: () => void;
   title?: ReactNode;
   label?: ReactNode;
   right?: ReactNode;
 }) {
   const href = back ?? close;
+  const navCls = "flex h-11 w-11 items-center justify-center rounded-xl text-ink";
   return (
     <div className="safe-top flex shrink-0 items-center justify-between px-5 pb-2">
-      {href ? (
-        <Link href={href} aria-label={close ? "Close" : "Back"} className="flex h-11 w-11 items-center justify-center rounded-xl text-ink">
+      {onClose ? (
+        <button type="button" onClick={onClose} aria-label="Close" className={navCls}>
+          <CloseIcon size={22} />
+        </button>
+      ) : href ? (
+        <Link href={href} aria-label={close ? "Close" : "Back"} className={navCls}>
           {close ? <CloseIcon size={22} /> : <BackIcon size={22} />}
         </Link>
       ) : (

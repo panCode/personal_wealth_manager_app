@@ -8,6 +8,7 @@ import { Button, Card, Chip, Eyebrow, OptionGroup, cx } from "@/components/ui";
 import { inr, inrFull, monthYear } from "@/lib/format";
 import { assumptions, type GoalsComputed } from "@/lib/goals";
 import { persona } from "@/lib/persona";
+import { scrollToWithin } from "@/lib/scroll";
 import { useStore } from "@/lib/store";
 
 export type GoalId = "emergency" | "home" | "retire";
@@ -22,7 +23,7 @@ export function AskDrawer({ open, onClose, goals, onRemove }: { open: boolean; o
   const set = useStore((s) => s.setOnboarding);
   const picked = ob.goalsPicked.filter((g): g is GoalId => g === "emergency" || g === "home" || g === "retire");
   const refs = useRef<Record<string, HTMLDivElement | null>>({});
-  const jump = (id: string) => refs.current[id]?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const jump = (id: string) => scrollToWithin(refs.current[id]);
   const unpicked = (["education", "travel", "custom"] as const).filter((g) => !ob.goalsPicked.includes(g));
 
   return (

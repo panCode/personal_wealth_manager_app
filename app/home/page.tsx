@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { BottomNav } from "@/components/BottomNav";
-import { ArrowRightIcon, BellIcon, CheckIcon, ChevronRightIcon, ClockIcon, DocIcon, GrowthIcon, SwapIcon } from "@/components/icons";
+import { ArrowRightIcon, BellIcon, CheckIcon, ChevronRightIcon, ClockIcon, DocIcon, GearIcon, GrowthIcon, SwapIcon } from "@/components/icons";
 import { Avatar, Card, DarkCard, Eyebrow, IconBox, Pill, ProgressBar, Row, RowText, Screen, SectionTitle } from "@/components/ui";
 import { decisions } from "@/lib/decisions";
 import { dayLine, greeting, inr, inrFull, monthYear } from "@/lib/format";
@@ -44,7 +44,9 @@ export default function Home() {
                   <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-attn px-1 text-[11px] font-bold text-white">{waiting}</span>
                 )}
               </Link>
-              <Link href="/settings" aria-label="Prototype settings"><Avatar initials={p.initials} size={40} dark /></Link>
+              <Link href="/settings" aria-label="Prototype settings" className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink">
+                <GearIcon size={20} />
+              </Link>
             </div>
           </div>
 
@@ -133,7 +135,7 @@ export default function Home() {
                 <RowText title={`Step up retirement SIP by ${inrFull(Math.max(goals.retire.shortBy, 4_000))} in October`} sub="Timed to your salary revision. Closes the gap." />
                 <Pill tone="accent">{stepup === "proposed" ? "Set up" : stepup === "declined" ? "Declined" : "Done"}</Pill>
               </Row>
-              <Row href="/ask">
+              <Row href="/ask?q=tax-save">
                 <IconBox><DocIcon size={16} /></IconBox>
                 <RowText title="Save ₹31,000 more tax this year" sub="NPS under 80CCD(1B), HRA you're not claiming" />
                 <Pill tone="accent">See how</Pill>
@@ -201,6 +203,11 @@ export default function Home() {
             </div>
             <Link href="/ask" className="flex h-9 items-center rounded-[10px] border border-accent px-3 text-[13px] font-bold text-accent">Talk</Link>
           </Card>
+
+          {/* Prototype footer */}
+          <span className="pb-1 text-center text-[12px] text-muted">
+            This is a prototype with a demo account. <Link href="/settings" className="font-bold text-accent">Start over</Link>
+          </span>
         </div>
       </Screen>
       <BottomNav />
