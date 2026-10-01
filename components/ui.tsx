@@ -63,11 +63,11 @@ export function Footer({ children }: { children: ReactNode }) {
 /* ---------- Text ---------- */
 
 export function H1({ children, className }: { children: ReactNode; className?: string }) {
-  return <h1 className={cx("font-display text-[30px] leading-[1.12] tracking-[-0.01em]", className)}>{children}</h1>;
+  return <h1 className={cx("font-display text-[26px] leading-[1.15] tracking-[-0.01em]", className)}>{children}</h1>;
 }
 export function Eyebrow({ children, tone = "muted" }: { children: ReactNode; tone?: "muted" | "attn" }) {
   return (
-    <span className={cx("text-[12px] font-bold uppercase tracking-[0.06em]", tone === "attn" ? "text-attn-text" : "text-muted")}>
+    <span className={cx("text-[11px] font-bold uppercase tracking-[0.08em]", tone === "attn" ? "text-attn-text" : "text-muted")}>
       {children}
     </span>
   );
@@ -85,7 +85,7 @@ export function SectionTitle({ children, action }: { children: ReactNode; action
 
 export function Card({ children, className, padded = true }: { children: ReactNode; className?: string; padded?: boolean }) {
   return (
-    <div className={cx("rounded-card border border-line bg-surface", padded && "p-4", !padded && "overflow-hidden", className)}>
+    <div className={cx("rounded-card bg-surface", padded && "p-4", !padded && "overflow-hidden", className)}>
       {children}
     </div>
   );
@@ -96,10 +96,10 @@ export function DarkCard({ children, className }: { children: ReactNode; classNa
 export function Note({ children, tone = "neutral" }: { children: ReactNode; tone?: "neutral" | "attn" | "accent" }) {
   const tones = {
     neutral: "bg-sunken text-ink-2",
-    attn: "border border-attn-line bg-attn-soft text-ink",
+    attn: "bg-attn-soft text-ink",
     accent: "bg-accent-soft text-ink",
   };
-  return <div className={cx("rounded-xl px-3.5 py-3 text-[12px] leading-[1.45]", tones[tone])}>{children}</div>;
+  return <div className={cx("rounded-[14px] px-3.5 py-3 text-[12px] leading-[1.45]", tones[tone])}>{children}</div>;
 }
 
 /** A row inside a list card. `href` makes it a link. */
@@ -116,7 +116,7 @@ export function Row({
   last?: boolean;
   className?: string;
 }) {
-  const cls = cx("flex w-full items-center gap-3 px-3.5 py-3 text-left text-ink", !last && "border-b border-sunken", className);
+  const cls = cx("flex min-h-14 w-full items-center gap-3 px-4 py-3 text-left text-ink", !last && "border-b border-line", className);
   if (href) return <Link href={href} className={cls}>{children}</Link>;
   if (onClick) return <button type="button" onClick={onClick} className={cls}>{children}</button>;
   return <div className={cls}>{children}</div>;
@@ -157,17 +157,20 @@ export function Chip({
   onClick,
   href,
   size = "md",
+  tone = "surface",
 }: {
   children: ReactNode;
   selected?: boolean;
   onClick?: () => void;
   href?: string;
   size?: "sm" | "md";
+  /** `surface` sits on the ground; use `sunken` for a chip inside a white card. */
+  tone?: "surface" | "sunken";
 }) {
   const cls = cx(
     "inline-flex shrink-0 items-center whitespace-nowrap rounded-full font-semibold",
     size === "sm" ? "h-8 px-3 text-[12px]" : "h-9 px-3.5 text-[12px]",
-    selected ? "border-2 border-accent bg-accent-soft font-bold text-ink" : "border border-line-2 bg-surface text-ink"
+    selected ? "bg-accent-soft font-bold text-accent" : tone === "sunken" ? "bg-sunken text-ink" : "bg-surface text-ink"
   );
   if (href) return <Link href={href} className={cls}>{children}</Link>;
   return (
@@ -213,7 +216,7 @@ export function OptionGroup<T extends string>({ options, value, onChange }: { op
           onClick={() => onChange(o.value)}
           className={cx(
             "h-11 flex-1 rounded-xl text-[13px]",
-            o.value === value ? "border-2 border-accent bg-accent-soft font-bold text-ink" : "border border-line-2 bg-surface font-semibold text-ink"
+            o.value === value ? "bg-accent-soft font-bold text-accent ring-2 ring-accent ring-inset" : "bg-sunken font-semibold text-ink"
           )}
         >
           {o.label}
@@ -240,11 +243,11 @@ export function Button({
   type?: "button" | "submit";
   className?: string;
 }) {
-  const sizes = { lg: "h-[54px] rounded-btn text-[16px]", md: "h-12 rounded-btn text-[14px]", sm: "h-9 rounded-[10px] px-3.5 text-[13px]" };
+  const sizes = { lg: "h-[54px] rounded-btn text-[16px]", md: "h-12 rounded-btn text-[14px]", sm: "h-9 rounded-[12px] px-3.5 text-[13px]" };
   const variants = {
     primary: "bg-accent text-white",
-    secondary: "border border-accent bg-surface text-accent",
-    ghost: "border border-line-2 bg-surface text-ink-2",
+    secondary: "bg-accent-soft text-accent",
+    ghost: "bg-sunken text-ink-2",
     dark: "bg-ink text-white",
   };
   const cls = cx("inline-flex items-center justify-center gap-2 font-bold", sizes[size], variants[variant], className);

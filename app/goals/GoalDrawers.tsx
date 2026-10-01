@@ -71,9 +71,9 @@ export function AskDrawer({ open, onClose, goals, onRemove }: { open: boolean; o
             <label htmlFor="budget" className="text-[13px] font-bold">Roughly what would it cost today?</label>
             <MoneyInput id="budget" value={ob.home.budgetToday} onChange={(n) => set({ home: { ...ob.home, budgetToday: n } })} />
             <div className="flex flex-wrap gap-1.5">
-              <Chip size="sm" onClick={() => set({ home: { ...ob.home, budgetToday: 8_500_000 } })}>2BHK Whitefield ≈ ₹85L</Chip>
-              <Chip size="sm" onClick={() => set({ home: { ...ob.home, budgetToday: 13_000_000 } })}>3BHK HSR ≈ ₹1.3 Cr</Chip>
-              <Chip size="sm" onClick={() => set({ home: { ...ob.home, budgetToday: 10_000_000 } })}>Estimate for me</Chip>
+              <Chip size="sm" tone="sunken" onClick={() => set({ home: { ...ob.home, budgetToday: 8_500_000 } })}>2BHK Whitefield ≈ ₹85L</Chip>
+              <Chip size="sm" tone="sunken" onClick={() => set({ home: { ...ob.home, budgetToday: 13_000_000 } })}>3BHK HSR ≈ ₹1.3 Cr</Chip>
+              <Chip size="sm" tone="sunken" onClick={() => set({ home: { ...ob.home, budgetToday: 10_000_000 } })}>Estimate for me</Chip>
             </div>
           </div>
           <div className="flex flex-col gap-2">

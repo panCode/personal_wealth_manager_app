@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/fraunces/opsz.css";
+import "@fontsource-variable/fraunces/full.css";
 import "@fontsource-variable/manrope";
 import "./globals.css";
 import { PhoneFrame } from "@/components/PhoneFrame";
