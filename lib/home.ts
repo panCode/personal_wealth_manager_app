@@ -3,6 +3,7 @@
  * store. Pure functions so the screen stays thin and the rules are testable.
  * The rule for every line here: it must say what changed (DESIGN.md §1.3).
  */
+import { suggested } from "./answers";
 import { decisions, type Decision } from "./decisions";
 import type { GoalsComputed } from "./goals";
 import { dayMonth, inr, inrFull } from "./format";
@@ -83,6 +84,20 @@ export function whatMoved(live: Live, ob: Onboarding): MovedRow[] {
   rows.push({ key: "sips", label: "SIPs", sub: `went in on the ${p.sipDay}th`, value: inr(sips), href: "/plan" });
 
   return rows.slice(0, 3);
+}
+
+/**
+ * The three Ask chips on Home, from the user's situation: a loan → prepay,
+ * a health policy → cover, a linked bank → the three-month spend view (else
+ * the SIP-for-the-house question), then the discovery order fills the rest.
+ */
+export function askChips(ob: Onboarding): string[] {
+  const picks: string[] = [];
+  if (persona.loans.length) picks.push("prepay");
+  if (persona.protection.health.cover > 0) picks.push("insurance");
+  picks.push(ob.connections.bank ? "spends-3m" : "sip-house");
+  for (const id of suggested) if (picks.length < 3 && !picks.includes(id)) picks.push(id);
+  return picks.slice(0, 3);
 }
 
 /** Next month's SIP date, for the calm card's "next check-in" line. */

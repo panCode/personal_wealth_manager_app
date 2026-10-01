@@ -217,6 +217,12 @@ export const persona = {
     month: "September",
     total: 78_400,
     usual: 83_000,
+    /** Monthly totals, oldest first. The Ask answer "spends-3m" quotes these. */
+    history: [
+      { month: "Jul", total: 84_100 },
+      { month: "Aug", total: 81_300 },
+      { month: "Sep", total: 78_400 },
+    ],
     categories: [
       { key: "emi", label: "EMI", amount: 38_400, change: "same", color: "#16201D" },
       { key: "household", label: "Household & bills", amount: 24_100, change: "−14%", changeTone: "accent", color: "#0E6B55" },

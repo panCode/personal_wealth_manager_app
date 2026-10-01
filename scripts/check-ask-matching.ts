@@ -36,6 +36,11 @@ const table: Array<[string, string | null]> = [
   ["Do I need a health top-up?", "insurance"],
   ["Should I buy term insurance?", "insurance"],
   ["Is my term life cover enough?", "insurance"],
+  // spends-3m, before spending
+  ["My spends, last 3 months?", "spends-3m"],
+  ["How have my spends been in the past 3 months?", "spends-3m"],
+  ["How did I spend over the past three months?", "spends-3m"],
+  ["Show me my spending trend", "spends-3m"],
   // spending
   ["Am I overspending?", "spending"],
   ["Is my food delivery spend too high?", "spending"],

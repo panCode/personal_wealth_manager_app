@@ -56,7 +56,7 @@ export default function Spending() {
           <div className="flex flex-col gap-1">
             <h1 className="font-display text-[26px]">Spending</h1>
             <div className="flex items-baseline gap-2.5">
-              <span className="font-display text-[32px]">{inrFull(month === "Sep" ? total : 81_300)}</span>
+              <span className="font-display text-[32px]">{inrFull(month === "Sep" ? total : sp.history[1].total)}</span>
               <span className={cx("text-[13px] font-bold", (month === "Sep" ? diff : -2) <= 0 ? "text-accent" : "text-attn-text")}>
                 {month === "Sep" ? `${Math.abs(diff)}% ${diff <= 0 ? "under" : "over"} your usual ${inrFull(sp.usual)}` : `2% under your usual ${inrFull(sp.usual)}`}
               </span>

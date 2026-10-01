@@ -6,7 +6,8 @@
  * `findAnswer` returns the first match in array order, so the array is in
  * match priority, specific before broad: car before loan ("car loan" is the
  * car answer), card before spending ("based on my spend, which card"), regime
- * before tax-save ("old or new tax regime"). Chip order on the screen is
+ * before tax-save ("old or new tax regime"), the three-month view before
+ * spending ("my spends over the past 3 months"). Chip order on the screen is
  * `suggested`, kept separate so discovery order can differ from match order.
  * `scripts/check-ask-matching.ts` guards the routing.
  *
@@ -116,6 +117,26 @@ export const answers: Answer[] = [
       { label: "Top-up in Activity", href: "/activity" },
     ],
     footnote: "Cover from your policies; the top-up renews 3 Sep 2027. Premiums are approximate.",
+  },
+  {
+    id: "spends-3m",
+    match: /(last|past|previous|over the)\s*(3|three|few|couple of)\s*months|month[- ]on[- ]month|\btrend|quarter/i,
+    question: "My spends, last 3 months?",
+    lead: "Down three months in a row: ₹84k, ₹81k, ₹78k.",
+    facts: [
+      { label: "July", value: "₹84,100 · 1% over usual" },
+      { label: "August", value: "₹81,300 · 2% under" },
+      { label: "September", value: "₹78,400 · 6% under" },
+    ],
+    body: [
+      "Household and bills did most of it: down ₹3,900 a month since you switched broadband and electricity plans in August. Lifestyle crept the other way, up ₹1,700, almost all of it food delivery. The EMI hasn’t moved.",
+      "Net, you are putting away about ₹4,600 a month more than your six-month average. That is why the emergency fund date moved up, and why I haven’t brought you a spending decision: there isn’t one to make yet, other than the two unused subscriptions.",
+    ],
+    actions: [
+      { label: "See the three months", href: "/spending", primary: true },
+      { label: "Cancel the two unused subscriptions", href: "/decision/subs-1" },
+    ],
+    footnote: "HDFC + ICICI statements via Account Aggregator, July to 27 September. Three September spends still need a label.",
   },
   {
     id: "spending",
@@ -239,7 +260,7 @@ export const answers: Answer[] = [
 ];
 
 /** "People also ask" order. Discovery order, not match order: the new topics first. */
-export const suggested = ["tax-save", "spending", "insurance", "loan", "card", "sip-house", "retire", "regime", "gold", "car", "crash", "prepay"];
+export const suggested = ["tax-save", "spending", "spends-3m", "insurance", "loan", "card", "sip-house", "retire", "regime", "gold", "car", "crash", "prepay"];
 
 export const fallback = {
   lead: "I'd rather not guess on that.",

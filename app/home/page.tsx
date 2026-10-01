@@ -10,15 +10,12 @@ import { SkyBand } from "@/components/SkyBand";
 import { Avatar, Screen, cx } from "@/components/ui";
 import { answers } from "@/lib/answers";
 import { inrLike } from "@/lib/format";
-import { nextCheckIn, oneThing, verdict, whatMoved } from "@/lib/home";
+import { askChips, nextCheckIn, oneThing, verdict, whatMoved } from "@/lib/home";
 import { persona } from "@/lib/persona";
 import { useStore } from "@/lib/store";
 import { useGoals } from "@/lib/useGoals";
 
 const p = persona;
-
-/** Chips under the Ask box: the three questions this user is most likely to have. */
-const CHIP_IDS = ["prepay", "insurance", "spending"];
 
 /**
  * 5 · Home, v2 (docs/home-v2.md). Four blocks: the sky band with the one
@@ -122,7 +119,8 @@ function AskBlock() {
   const router = useRouter();
   const track = useStore((s) => s.track);
   const [text, setText] = useState("");
-  const chips = CHIP_IDS.map((id) => answers.find((a) => a.id === id)).filter((a): a is NonNullable<typeof a> => !!a);
+  const ob = useStore((s) => s.onboarding);
+  const chips = askChips(ob).map((id) => answers.find((a) => a.id === id)).filter((a): a is NonNullable<typeof a> => !!a);
 
   function submit(e: FormEvent) {
     e.preventDefault();
