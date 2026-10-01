@@ -18,10 +18,11 @@
   --color-accent-mid: #6fb79b;
   --color-accent-pale: #d9e4df;
   --color-accent-light: #9fd9c4;
-  --color-attn: #b4540a;
-  --color-attn-text: #8a3f06;
-  --color-attn-soft: #fbebd9;
-  --color-attn-line: #f0cfa8;
+  /* "attn" = for you: the warm ochre of the one-thing card, never an alarm */
+  --color-attn: #c2742a;
+  --color-attn-text: #7f4a12;
+  --color-attn-soft: #f6e7d3;
+  --color-attn-line: #ead2b4;
   --color-danger: #a8322b;
   --color-ochre: #c2742a;
   --color-ochre-text: #7f4a12;

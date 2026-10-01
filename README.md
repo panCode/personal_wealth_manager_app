@@ -49,7 +49,8 @@ npm run flows    # click-through checks: core loop, onboarding, informed, ship
 | 3 · Onboarding | Connect, About you (bank-connected and self-reported), Goals with the questions drawer and the "how we sized this" drawer; formulas in `lib/goals.ts` recompute live | ✅ |
 | 4 · Informed | Notifications with per-category channel settings, WhatsApp preview, Spending (label + add spends), Scenarios, simulations (car with editable inputs; house-2029, retire-55, raise, job-loss) on `lib/scenarios.ts` | ✅ |
 | 5 · Ship | Install nudge (iOS hint / Android prompt), tester settings with reset at `/settings` (the gear on Home) | ✅ |
-| v2 · Home | Sky band that follows the clock, one number + verdict, one thing (or the calm state), what moved, Ask; four tabs; History under Settings | ✅ |
+| v2 · Home | Sky band that follows the clock, one number + verdict, one thing (or the calm state), what moved, Ask with chips from the user's situation; four tabs; History under Settings | ✅ |
+| v2 · System | Borderless tone-on-tone cards, bigger radii, Fraunces SOFT for hero numbers, "attention" is the warm for-you ochre, no number coloured by its sign | ✅ |
 
 ## Layout
 

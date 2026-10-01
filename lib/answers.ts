@@ -114,7 +114,7 @@ export const answers: Answer[] = [
     ],
     actions: [
       { label: "Protection on your plan", href: "/plan", primary: true },
-      { label: "Top-up in Activity", href: "/activity" },
+      { label: "Top-up in History", href: "/activity" },
     ],
     footnote: "Cover from your policies; the top-up renews 3 Sep 2027. Premiums are approximate.",
   },

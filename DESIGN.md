@@ -64,8 +64,10 @@ better comes up):
 ```
 
 Colour as meaning, and only as meaning: green = on plan / growth; ochre = for
-you; rust (`danger`) = overdue, rare; everything else neutral. Never colour a
-number by its sign on Home.
+you (the `attn` tokens now carry these ochre values, so every "needs you"
+state across the app is the same warm colour as the one-thing card); rust
+(`danger`) = an error or an overdue action, rare; everything else neutral.
+Never colour a number by its sign: a negative return is written in words, in ink.
 
 ## 4 · Type
 
@@ -132,6 +134,8 @@ the sparkline colour), `CountUp` (unit-stable rupee count-up), and in
 fed by `lib/home.ts` (pure: `oneThing`, `verdict`, `whatMoved`).
 
 ## 10 · Phases and definition of done
+
+All four phases shipped on `design-v2` on 1 Oct 2026 (commits: Phase A `b4d8885`, B `f6fae54`, C `bb9758d`, D below). The table stays as the definition of done for any later pass.
 
 | Phase | Scope | Done when |
 |---|---|---|

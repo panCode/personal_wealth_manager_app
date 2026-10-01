@@ -78,7 +78,7 @@ function Ask() {
           <h1 className="font-display text-[22px]">Ask your CFO</h1>
           <span className="text-[12px] text-muted">Answers use your real numbers</span>
         </div>
-        <button type="button" onClick={() => setBook(true)} className="flex h-9 items-center gap-1.5 rounded-[10px] border border-line-2 bg-surface px-3 text-[12px] font-bold">
+        <button type="button" onClick={() => setBook(true)} className="flex h-9 items-center gap-1.5 rounded-[12px] bg-surface px-3 text-[12px] font-bold">
           <Avatar initials={persona.wealthManager.initials} size={20} /> Talk to Meera
         </button>
       </div>
