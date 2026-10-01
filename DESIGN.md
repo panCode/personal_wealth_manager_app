@@ -9,16 +9,21 @@ load.** A personal CFO, built by real wealth managers, watches everything and
 brings the user one decision at a time. The user approves; a named human is
 accountable.
 
-## 0 · Decisions still pending — do not implement, ask Nikhil
+## 0 · Decisions: settled and pending
 
-| # | Open question | Recommendation (not yet approved) |
+Settled (1 Oct 2026):
+
+- **P1 Home hero: number-first.** Big ₹ net worth, monthly cadence, verdict in words under it.
+- **P2 Bottom tabs: 4** — Home · Portfolio · Plan · Ask. Activity becomes "History", reached from settings and from the one-thing card's trail.
+- **P4 Where it's built: in the cloud session**, pushed to `design-v2`; Nikhil reviews on the Vercel preview and his phone.
+
+Pending — do not implement, ask Nikhil:
+
+| # | Open question | Where to look |
 |---|---|---|
-| P1 | Home hero: number-first (big ₹ net worth) or verdict-first (big "On plan.", net worth smaller) | Number-first, monthly cadence |
-| P2 | Bottom tabs: keep 5 (Home · Portfolio · Plan · Ask · Activity) or go to 4 (Activity → "History" under settings) | 4 |
-| P3 | Direction: **B** dusk & cream (light, sky band) or **C** night sky (full dark) | B |
-| P4 | Phase A (foundation) built in the cloud session or locally | — |
+| P3 | Direction **B** dusk & cream (light, sky band) or **C** night sky (full dark) | Canvas row "Design v2 — Home"; copies in `spec/HomeV2B*.dc.html` and `spec/HomeV2C*.dc.html` |
 
-Until these are settled, build only what does not depend on them.
+Until P3 is settled, Phase A builds only what both directions share: type scale, radii, borderless cards, the `SkyBand` component with its gradients behind a theme switch, copy pass.
 
 ## 1 · Principles
 

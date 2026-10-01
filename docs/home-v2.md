@@ -1,7 +1,7 @@
 # Home v2 — spec
 
-Status: **proposed, awaiting Nikhil's sign-off on P1–P3 in `DESIGN.md`.** Build in
-Phase B. Read `DESIGN.md` first; this document only says what Home shows and
+Status: **structure approved (number-first hero, 4 tabs); palette pending P3 in
+`DESIGN.md`.** Samples: `spec/HomeV2*.dc.html`. Build in Phase B. Read `DESIGN.md` first; this document only says what Home shows and
 where each line comes from.
 
 ## Why Home changes
@@ -33,7 +33,7 @@ in `DESIGN.md` §1.3.
 ├───────────────────────────────────┤
 │ 4 ASK YOUR CFO                    │  input + 3 chips from state
 └───────────────────────────────────┘
-  bottom nav (per P2)
+  bottom nav: Home · Portfolio · Plan · Ask (P2 settled: 4 tabs)
 ```
 
 Nothing else. No bell, no badge, no goal bars, no SIP plan, no WM card, no
@@ -55,8 +55,7 @@ over") stays, muted, under block 4.
   - what it means: from `computeGoals()`: all `onTrack` → "On plan."; one goal
     short → "One goal needs a nudge." (the nudge is then block 2); not linked →
     "Link your bank to see the full picture."
-- Variant per **P1**: number-first (above) or verdict-first (big "On plan.",
-  net worth 26px under it). Build one; keep the other as a flag only if cheap.
+- P1 settled: number-first, as drawn above.
 - A 12-month line (`persona.sparkline`), 60px tall, no axes, no dots, single
   `accent` stroke, never red.
 
