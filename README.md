@@ -25,6 +25,20 @@ npm run build && npm start
 - **iPhone:** open the link in Safari → Share → *Add to Home Screen*.
 - **Android:** Chrome shows an install prompt, or ⋮ → *Add to Home screen*.
 
+## Checks
+
+```bash
+npm run check    # eslint + tsc + the Ask routing table (scripts/check-ask-matching.ts)
+npm run shots    # screenshot every route at 390×844 → shots/ (needs the app running)
+npm run flows    # click-through checks: core loop, onboarding, informed, ship
+```
+
+`shots` and `flows` use Playwright; run `npx playwright install chromium` once. They default to `http://localhost:3000` (`BASE_URL` to change).
+
+## Design v2
+
+`DESIGN.md` holds the design rules (calm, one thing at a time, show what moves) and `docs/home-v2.md` the Home spec. Both are loaded into every Claude Code session via `CLAUDE.md`. Work happens on the `design-v2` branch; `main` is what testers are using.
+
 ## What works today
 
 | Step | Screens | Status |
@@ -34,7 +48,9 @@ npm run build && npm start
 | 2 · Money | Portfolio (allocation · holdings · performance), Plan, Ask with scripted answers and call booking | ✅ |
 | 3 · Onboarding | Connect, About you (bank-connected and self-reported), Goals with the questions drawer and the "how we sized this" drawer; formulas in `lib/goals.ts` recompute live | ✅ |
 | 4 · Informed | Notifications with per-category channel settings, WhatsApp preview, Spending (label + add spends), Scenarios, simulations (car with editable inputs; house-2029, retire-55, raise, job-loss) on `lib/scenarios.ts` | ✅ |
-| 5 · Ship | Install nudge (iOS hint / Android prompt), tester settings with reset at `/settings` (tap the avatar on Home) | ✅ |
+| 5 · Ship | Install nudge (iOS hint / Android prompt), tester settings with reset at `/settings` (the gear on Home) | ✅ |
+| v2 · Home | Sky band that follows the clock, one number + verdict, one thing (or the calm state), what moved, Ask with chips from the user's situation; four tabs; History under Settings | ✅ |
+| v2 · System | Borderless tone-on-tone cards, bigger radii, Fraunces SOFT for hero numbers, "attention" is the warm for-you ochre, no number coloured by its sign | ✅ |
 
 ## Layout
 

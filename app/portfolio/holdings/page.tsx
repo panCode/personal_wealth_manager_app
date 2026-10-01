@@ -28,7 +28,7 @@ export default function PortfolioHoldings() {
             const items = all.filter((h) => h.goal === gl);
             return { key: gl, label: `${goalNames[gl]} · ${items.length}`, total: items.reduce((s, h) => s + h.value, 0), items, more: undefined };
           }).filter((s) => s.items.length)
-        : [{ key: "attn", label: "Needs attention · 2", total: all.filter((h) => h.status === "action" || h.status === "watching").reduce((s, h) => s + h.value, 0), items: all.filter((h) => h.status === "action" || h.status === "watching"), more: undefined }];
+        : [{ key: "attn", label: "Needs a look · 2", total: all.filter((h) => h.status === "action" || h.status === "watching").reduce((s, h) => s + h.value, 0), items: all.filter((h) => h.status === "action" || h.status === "watching"), more: undefined }];
 
   return (
     <>
@@ -39,7 +39,7 @@ export default function PortfolioHoldings() {
           <div className="flex gap-2 overflow-x-auto no-scrollbar">
             <Chip selected={view === "type"} onClick={() => setView("type")}>By type</Chip>
             <Chip selected={view === "goal"} onClick={() => setView("goal")}>By goal</Chip>
-            <Chip selected={view === "attention"} onClick={() => setView("attention")}>Needs attention (2)</Chip>
+            <Chip selected={view === "attention"} onClick={() => setView("attention")}>Needs a look (2)</Chip>
           </div>
 
           <div className="flex flex-col gap-2.5">

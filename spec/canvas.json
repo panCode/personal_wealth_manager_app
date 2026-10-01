@@ -190,6 +190,42 @@
       "w": 390,
       "x": 1880,
       "y": 2560
+    },
+    "HomeV2B.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "v2 · Home · B dusk & cream · one thing pending",
+      "w": 390,
+      "x": 0,
+      "y": 3840
+    },
+    "HomeV2BCalm.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "v2 · Home · B at night · nothing needs you",
+      "w": 390,
+      "x": 470,
+      "y": 3840
+    },
+    "HomeV2C.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "v2 · Home · C night sky · one thing pending",
+      "w": 390,
+      "x": 940,
+      "y": 3840
+    },
+    "HomeV2CCalm.dc.html": {
+      "h": 844,
+      "is_interactive": true,
+      "radius": 28,
+      "title": "v2 · Home · C at night · nothing needs you",
+      "w": 390,
+      "x": 1410,
+      "y": 3840
     }
   },
   "createdOnFiles": {
@@ -231,6 +267,21 @@
       "w": 240,
       "x": 0,
       "y": 2280
+    },
+    "t4": {
+      "kind": "title1",
+      "maxW": 3680,
+      "text": "Design v2 — Home: direction B (dusk & cream) vs C (night sky)",
+      "w": 240,
+      "x": 0,
+      "y": 3560
+    },
+    "s2": {
+      "fill": "orange",
+      "w": 360,
+      "x": 1880,
+      "y": 3840,
+      "text": "Decided: number-first hero, 4 tabs (Activity moves under settings as History), only what moved on Home.\n\nTo decide: B or C. Same content in both; only the palette differs. The sky follows the clock (dawn, day, dusk, night) in both; the two left frames show B at dusk and at night, the two right show C.\n\nFrames 1 and 3: a decision is waiting. Frames 2 and 4: nothing pending — the calm state, which should look better than the busy one, not emptier.\n\nScroll inside a frame to see the Ask block: input plus three chips picked from the user's situation."
     }
   },
   "order": [
@@ -254,7 +305,11 @@
     "WhatsApp.dc.html",
     "Spending.dc.html",
     "Scenarios.dc.html",
-    "Simulate.dc.html"
+    "Simulate.dc.html",
+    "HomeV2B.dc.html",
+    "HomeV2BCalm.dc.html",
+    "HomeV2C.dc.html",
+    "HomeV2CCalm.dc.html"
   ],
   "pages": [],
   "title": "Personal CFO — App Prototype"

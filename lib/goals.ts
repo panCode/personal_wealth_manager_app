@@ -190,7 +190,7 @@ export function computeGoals(ob: Onboarding) {
   return {
     expenses,
     surplus: ob.income - expenses,
-    emergency: { ...emergency, saved: eg.saved, sip: eg.sip, reach: emergencyReach, onTrack: emergencyMonths <= 9 },
+    emergency: { ...emergency, saved: eg.saved, sip: eg.sip, reach: emergencyReach, onTrack: emergencyMonths <= 18 },
     home: { ...home, saved: hg.saved, sip: hg.sip },
     retire: { ...retire, saved: rg.saved, sip: rg.sip },
   };

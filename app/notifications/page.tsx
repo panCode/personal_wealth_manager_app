@@ -95,7 +95,7 @@ export default function Notifications() {
                 {doneLive.map(([id]) => (
                   <Row key={id}><IconBox><CheckIcon size={16} strokeWidth={2} /></IconBox><RowText title={decisions[id].activityTitle} sub="Approved by you · order with the exchange · today" /></Row>
                 ))}
-                <Row><IconBox><CheckIcon size={16} strokeWidth={2} /></IconBox><RowText title="SIP of ₹35,000 went through" sub="Split across 3 goals as planned. · 20 Sep" /></Row>
+                <Row><IconBox><CheckIcon size={16} strokeWidth={2} /></IconBox><RowText title="SIP of ₹60,000 went through" sub="Split across 3 goals as planned. · 5 Sep" /></Row>
                 <Row last><IconBox><CheckIcon size={16} strokeWidth={2} /></IconBox><RowText title="Health top-up policy issued, ₹25L" sub="PDF saved to your documents. Renews 3 Sep 2027. · 6 Sep" /></Row>
               </Card>
             </div>

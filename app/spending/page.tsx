@@ -56,8 +56,8 @@ export default function Spending() {
           <div className="flex flex-col gap-1">
             <h1 className="font-display text-[26px]">Spending</h1>
             <div className="flex items-baseline gap-2.5">
-              <span className="font-display text-[32px]">{inrFull(month === "Sep" ? total : 81_300)}</span>
-              <span className={cx("text-[13px] font-bold", (month === "Sep" ? diff : -2) <= 0 ? "text-accent" : "text-attn-text")}>
+              <span className="font-display text-[32px]">{inrFull(month === "Sep" ? total : sp.history[1].total)}</span>
+              <span className="text-[13px] font-bold text-ink-2">
                 {month === "Sep" ? `${Math.abs(diff)}% ${diff <= 0 ? "under" : "over"} your usual ${inrFull(sp.usual)}` : `2% under your usual ${inrFull(sp.usual)}`}
               </span>
             </div>
@@ -80,7 +80,7 @@ export default function Spending() {
                     {c.key === "other" && unlabelled.length > 0 && <span className="font-bold text-attn-text"> · {unlabelled.length} unlabelled</span>}
                   </span>
                   <span className="font-bold">{inrFull(c.amount)}</span>
-                  <span className={cx("w-12 text-right text-[11px]", c.changeTone === "accent" ? "text-accent" : c.changeTone === "attn" ? "text-attn-text" : "text-muted")}>{c.change}</span>
+                  <span className="w-12 text-right text-[11px] text-muted">{c.change}</span>
                 </div>
               ))}
               {extraTotal > 0 && (

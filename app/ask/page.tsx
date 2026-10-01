@@ -16,7 +16,8 @@ type Msg = { role: "user"; text: string } | { role: "cfo"; answer: Answer | null
 /**
  * 10 · Ask your CFO
  * `?q=<answer id>` seeds the chat with that answer instead of the default
- * (Home's tax row and Plan's health row link in this way). `useSearchParams`
+ * (Home's chips and Plan's health row link in this way); `?text=<question>`
+ * seeds it with a question typed into the box on Home. `useSearchParams`
  * needs a Suspense boundary above it for the static build, same as Activity.
  */
 export default function AskPage() {
@@ -28,12 +29,21 @@ export default function AskPage() {
 }
 
 function Ask() {
-  const q = useSearchParams().get("q");
+  const sp = useSearchParams();
+  const q = sp.get("q");
+  const typed = sp.get("text")?.trim();
   const seed = answers.find((a) => a.id === q) ?? answers[0];
-  const [msgs, setMsgs] = useState<Msg[]>(() => [
-    { role: "user", text: seed.question },
-    { role: "cfo", answer: seed },
-  ]);
+  const [msgs, setMsgs] = useState<Msg[]>(() =>
+    typed
+      ? [
+          { role: "user", text: typed },
+          { role: "cfo", answer: findAnswer(typed) },
+        ]
+      : [
+          { role: "user", text: seed.question },
+          { role: "cfo", answer: seed },
+        ],
+  );
   const [text, setText] = useState("");
   const [book, setBook] = useState(false);
   const [slot, setSlot] = useState<"tomorrow-6" | "thu-1" | "sat-11">("tomorrow-6");
@@ -68,7 +78,7 @@ function Ask() {
           <h1 className="font-display text-[22px]">Ask your CFO</h1>
           <span className="text-[12px] text-muted">Answers use your real numbers</span>
         </div>
-        <button type="button" onClick={() => setBook(true)} className="flex h-9 items-center gap-1.5 rounded-[10px] border border-line-2 bg-surface px-3 text-[12px] font-bold">
+        <button type="button" onClick={() => setBook(true)} className="flex h-9 items-center gap-1.5 rounded-[12px] bg-surface px-3 text-[12px] font-bold">
           <Avatar initials={persona.wealthManager.initials} size={20} /> Talk to Meera
         </button>
       </div>

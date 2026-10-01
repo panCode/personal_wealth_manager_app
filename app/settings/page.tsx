@@ -2,6 +2,7 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { ChevronRightIcon } from "@/components/icons";
 import { Button, Card, Eyebrow, Row, RowText, Screen, TopBar } from "@/components/ui";
 import { persona } from "@/lib/persona";
 import { useStore } from "@/lib/store";
@@ -27,12 +28,18 @@ export default function Settings() {
 
   return (
     <>
-      <TopBar back="/home" title="Prototype settings" />
+      <TopBar back="/home" title="Settings" />
       <Screen>
         <div className="flex flex-col gap-4 px-5 pb-6 pt-1">
           <Card className="flex flex-col gap-1">
             <span className="text-[14px] font-bold">Demo account: {persona.firstName}, {persona.age}, {persona.city}</span>
             <span className="text-[12px] leading-[1.45] text-muted">Every number is illustrative. Nothing here is connected to a real bank, exchange or fund house.</span>
+          </Card>
+
+          <Card padded={false}>
+            <Row href="/activity"><RowText title="History" sub="Every decision, who approved it, and what settled" /><ChevronRightIcon size={18} className="text-faint" /></Row>
+            <Row href="/notifications"><RowText title="Notifications and what we watch" sub="Per topic: app, WhatsApp, both, or quiet" /><ChevronRightIcon size={18} className="text-faint" /></Row>
+            <Row href="/whatsapp" last><RowText title="How it looks on WhatsApp" sub="The same decisions, in a chat" /><ChevronRightIcon size={18} className="text-faint" /></Row>
           </Card>
 
           <div className="flex flex-col gap-2">
