@@ -25,6 +25,20 @@ npm run build && npm start
 - **iPhone:** open the link in Safari → Share → *Add to Home Screen*.
 - **Android:** Chrome shows an install prompt, or ⋮ → *Add to Home screen*.
 
+## Checks
+
+```bash
+npm run check    # eslint + tsc + the Ask routing table (scripts/check-ask-matching.ts)
+npm run shots    # screenshot every route at 390×844 → shots/ (needs the app running)
+npm run flows    # click-through checks: core loop, onboarding, informed, ship
+```
+
+`shots` and `flows` use Playwright; run `npx playwright install chromium` once. They default to `http://localhost:3000` (`BASE_URL` to change).
+
+## Design v2
+
+`DESIGN.md` holds the design rules (calm, one thing at a time, show what moves) and `docs/home-v2.md` the Home spec. Both are loaded into every Claude Code session via `CLAUDE.md`. Work happens on the `design-v2` branch; `main` is what testers are using.
+
 ## What works today
 
 | Step | Screens | Status |

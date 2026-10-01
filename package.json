@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "check:ask": "npx --yes tsx scripts/check-ask-matching.ts"
+    "check:ask": "npx --yes tsx scripts/check-ask-matching.ts",
+    "shots": "node scripts/shots.mjs",
+    "flows": "node scripts/flows.mjs",
+    "check": "npm run lint && npx tsc --noEmit && npm run check:ask"
   },
   "dependencies": {
     "@fontsource-variable/fraunces": "^5.3.0",
@@ -24,6 +27,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.3.7",
+    "playwright": "^1.63.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
