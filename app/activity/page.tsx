@@ -12,7 +12,7 @@ import { useStore } from "@/lib/store";
 type Item = { date: string; title: string; sub: React.ReactNode; live?: boolean };
 
 const history: Item[] = [
-  { date: "2026-09-20", title: "Monthly SIP ₹35,000 ran", sub: "Auto, as per plan · split across 3 goals" },
+  { date: "2026-09-05", title: "Monthly SIP ₹60,000 ran", sub: "Auto, as per plan · split across 3 goals" },
   {
     date: "2026-09-12",
     title: "Book a ₹40k loss on a midcap fund to offset gains",

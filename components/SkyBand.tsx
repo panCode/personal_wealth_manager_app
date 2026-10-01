@@ -32,7 +32,7 @@ export function SkyBand({ children, period: forced, className }: { children: Rea
     <div
       data-sky={period}
       className={cx("relative shrink-0 overflow-hidden transition-colors duration-700", night ? "text-ground" : "text-ink", className)}
-      style={{ background: "var(--sky-day)" }}
+      style={{ background: "var(--sky-day)", ["--sky-line" as string]: night ? "#9fd9c4" : "#0e6b55" }}
     >
       {PERIODS.map((p) => (
         <div
@@ -45,13 +45,13 @@ export function SkyBand({ children, period: forced, className }: { children: Rea
 
       {/* sun or moon */}
       <svg aria-hidden className="absolute right-0 top-0" width="390" height="150" viewBox="0 0 390 150">
-        {period === "dawn" && <circle cx="306" cy="112" r="22" fill="#f6cfae" />}
-        {period === "day" && <circle cx="312" cy="54" r="18" fill="#fff4d6" />}
-        {period === "dusk" && <circle cx="306" cy="98" r="22" fill="#f2c5a3" />}
+        {period === "dawn" && <circle cx="268" cy="112" r="22" fill="#f6cfae" />}
+        {period === "day" && <circle cx="262" cy="58" r="18" fill="#fff4d6" />}
+        {period === "dusk" && <circle cx="268" cy="104" r="22" fill="#f2c5a3" />}
         {night && (
           <>
-            <circle cx="312" cy="54" r="11" fill="#ede7d8" />
-            <circle cx="296" cy="50" r="10" fill="#2b3050" />
+            <circle cx="282" cy="54" r="11" fill="#ede7d8" />
+            <circle cx="266" cy="50" r="10" fill="#2b3050" />
             <circle cx="70" cy="40" r="1.6" fill="#ede7d8" />
             <circle cx="140" cy="22" r="1.2" fill="#ede7d8" />
             <circle cx="230" cy="36" r="1.4" fill="#ede7d8" />

@@ -29,12 +29,24 @@ async function section(name, fn, opts) {
   await ctx.close();
 }
 
-// 1 · Core loop: Home → Decision → Approve (OTP) → Activity, state survives reload
+// 1 · Core loop: Home → one thing → Approve (OTP) → History; Home reflects it, state survives reload
+async function approve(page, id) {
+  await go(page, `/decision/${id}`);
+  await page.getByRole("link", { name: /Approve/ }).click();
+  await page.waitForURL(`**/execute/${id}`);
+  for (let i = 0; i < 6; i++) await page.locator(`#otp${i}`).fill(String(i + 1));
+  await page.getByRole("button", { name: /Confirm order/ }).click();
+  await page.waitForURL("**/activity**", { timeout: 8000 });
+  await page.waitForTimeout(600);
+}
+
 await section("core", async (page) => {
   await go(page, "/home");
-  const badge = page.locator('a[aria-label^="Notifications"] span');
-  c.check("bell shows 1 waiting", (await badge.textContent().catch(() => "")) === "1");
-  await page.getByRole("link", { name: /decision waiting for you/i }).click();
+  const thing = page.getByRole("link", { name: /One thing this week/ });
+  c.check("one thing shows the rebalance", /Rebalance/.test((await thing.getAttribute("aria-label")) ?? ""));
+  c.check("verdict: one goal needs a nudge", (await page.getByText("One goal needs a nudge.").count()) === 1);
+  c.check("nothing red or amber on Home", (await page.locator('[class*="attn"], [class*="danger"]').count()) === 0);
+  await thing.click();
   await page.waitForURL("**/decision/rebalance-1");
   c.check("decision opens", /Move ₹1\.2L/.test(await page.locator("h1").textContent()));
   await page.getByRole("link", { name: /Approve/ }).click();
@@ -46,11 +58,22 @@ await section("core", async (page) => {
   c.check("toast confirms the order", /approved/i.test(await page.getByRole("status").textContent()));
   await page.screenshot({ path: `${dir}/flow_activity_after.png` });
   await go(page, "/home");
-  c.check("bell badge gone", (await badge.count()) === 0);
-  c.check("placed card on Home", (await page.getByText("Rebalance placed").count()) === 1);
+  c.check("what moved shows the placed order", (await page.getByText("Rebalance placed").count()) === 1);
+  c.check("one thing moves on to the step-up", /Step up/.test((await thing.getAttribute("aria-label")) ?? ""));
   await page.reload({ waitUntil: "load" });
   await page.waitForTimeout(500);
-  c.check("placed card survives reload", (await page.getByText("Rebalance placed").count()) === 1);
+  c.check("placed row survives reload", (await page.getByText("Rebalance placed").count()) === 1);
+  await approve(page, "stepup-1");
+  await go(page, "/home");
+  c.check("calm state once nothing is pending", (await page.getByText("Nothing needs you this week.").count()) === 1);
+  c.check("verdict: on plan", (await page.getByText("On plan.").count()) === 1);
+  await page.screenshot({ path: `${dir}/flow_home_calm.png` });
+  // Ask from Home
+  await page.locator("#home-ask").fill("Can I prepay my home loan?");
+  await page.locator("#home-ask").press("Enter");
+  await page.waitForURL("**/ask?text=**");
+  await page.waitForTimeout(400);
+  c.check("question typed on Home opens Ask with an answer", (await page.getByText("Short answer: prepay most of it, but not all.").count()) === 1);
 });
 
 // 2 · Onboarding: Connect → About → Goals (drawers recompute) → Home

@@ -1,212 +1,115 @@
 "use client";
 
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState, type FormEvent } from "react";
 import { BottomNav } from "@/components/BottomNav";
-import { ArrowRightIcon, BellIcon, CheckIcon, ChevronRightIcon, ClockIcon, DocIcon, GearIcon, GrowthIcon, SwapIcon } from "@/components/icons";
-import { Avatar, Card, DarkCard, Eyebrow, IconBox, Pill, ProgressBar, Row, RowText, Screen, SectionTitle } from "@/components/ui";
-import { decisions } from "@/lib/decisions";
-import { dayLine, greeting, inr, inrFull, monthYear } from "@/lib/format";
-import { useGoals } from "@/lib/useGoals";
+import { CountUp } from "@/components/CountUp";
+import { ArrowRightIcon, ChevronRightIcon, GearIcon, SendIcon } from "@/components/icons";
+import { SkyBand } from "@/components/SkyBand";
+import { Avatar, Screen, cx } from "@/components/ui";
+import { answers } from "@/lib/answers";
+import { inrLike } from "@/lib/format";
+import { nextCheckIn, oneThing, verdict, whatMoved } from "@/lib/home";
 import { persona } from "@/lib/persona";
 import { useStore } from "@/lib/store";
+import { useGoals } from "@/lib/useGoals";
 
 const p = persona;
 
-/** 5 · Home */
+/** Chips under the Ask box: the three questions this user is most likely to have. */
+const CHIP_IDS = ["prepay", "insurance", "spending"];
+
+/**
+ * 5 · Home, v2 (docs/home-v2.md). Four blocks: the sky band with the one
+ * number and its verdict; the one thing that needs the user, or the calm
+ * state; what moved this month; and Ask. Nothing that stands still.
+ */
 export default function Home() {
-  const rebalance = useStore((s) => s.decisions["rebalance-1"]?.status ?? "proposed");
-  const stepup = useStore((s) => s.decisions["stepup-1"]?.status ?? "proposed");
-  const waiting = rebalance === "proposed" ? 1 : 0;
-  const d = decisions["rebalance-1"];
-  const goals = useGoals();
-  // `hydrated` flips only on the client after mount, so reading the clock here
-  // never disagrees with the server-rendered HTML.
+  const live = useStore((s) => s.decisions);
+  const ob = useStore((s) => s.onboarding);
   const hydrated = useStore((s) => s.hydrated);
-  const today = hydrated ? dayLine() : "";
-  const hello = hydrated ? greeting() : "Hello";
-  const emergencyBy = monthYear(`${goals.emergency.reach.year}-${String(goals.emergency.reach.month).padStart(2, "0")}-01`);
-  const retireShort = stepup === "proposed" ? goals.retire.shortBy : 0;
+  const goals = useGoals();
+
+  const thing = oneThing(live);
+  const v = verdict(goals, ob, live);
+  const moved = whatMoved(live, ob);
 
   return (
     <>
       <Screen>
-        <div className="safe-top flex flex-col gap-4 px-5 pb-4">
-          {/* Header */}
-          <div className="flex items-center justify-between">
-            <div className="flex flex-col gap-0.5">
-              <span className="min-h-[18px] text-[13px] text-muted">{today}</span>
-              <span className="font-display text-[24px]">{hello}, {p.firstName}</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <Link href="/notifications" aria-label={`Notifications, ${waiting} need you`} className="relative flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink">
-                <BellIcon size={20} />
-                {waiting > 0 && (
-                  <span className="absolute -right-0.5 -top-0.5 flex h-[18px] min-w-[18px] items-center justify-center rounded-full bg-attn px-1 text-[11px] font-bold text-white">{waiting}</span>
-                )}
-              </Link>
-              <Link href="/settings" aria-label="Prototype settings" className="flex h-10 w-10 items-center justify-center rounded-full border border-line bg-surface text-ink">
-                <GearIcon size={20} />
+        {/* 1 · Sky band */}
+        <SkyBand className="pb-12">
+          <div className="safe-top flex flex-col px-5">
+            <div className="flex justify-end">
+              <Link href="/settings" aria-label="Prototype settings" className="flex h-10 w-10 items-center justify-center rounded-full bg-white/25 text-current">
+                <GearIcon size={18} />
               </Link>
             </div>
+            <div className="flex flex-col gap-1.5 pt-1">
+              <span className="sr-only">Net worth</span>
+              <CountUp value={p.netWorth.total} format={inrLike(p.netWorth.total)} className="font-display display-soft text-[52px] leading-none" />
+              <span className="text-[16px] leading-[1.4]">
+                {v.moved} <strong className="font-bold">{v.meaning}</strong>
+              </span>
+            </div>
+            <Sparkline points={p.sparkline} className={cx("mt-3", hydrated ? "opacity-100" : "opacity-0")} />
           </div>
+        </SkyBand>
 
-          {/* Net worth */}
-          <DarkCard className="flex flex-col gap-3 p-[18px]">
-            <span className="text-[12px] font-semibold uppercase tracking-[0.08em] text-on-dark-muted">Net worth</span>
-            <div className="flex items-end justify-between gap-3">
-              <div className="flex flex-col gap-1">
-                <span className="font-display text-[38px] leading-none">{inr(p.netWorth.total)}</span>
-                <span className="text-[13px] font-semibold text-accent-light">+{inr(p.netWorth.monthChange)} this month · +{p.netWorth.monthChangePct}%</span>
-              </div>
-              <Sparkline points={p.sparkline} />
-            </div>
-            <div className="flex gap-3.5 text-[12px] text-on-dark-muted">
-              <span>Assets {inr(p.netWorth.assets)}</span>
-              <span>Loans {inr(p.netWorth.loans)}</span>
-            </div>
-          </DarkCard>
-
-          {/* Decision waiting / in progress */}
-          {rebalance === "proposed" && (
-            <Link href={`/decision/${d.id}`} className="flex flex-col gap-2.5 rounded-card-lg border border-attn-line bg-attn-soft p-4 text-ink">
-              <div className="flex items-center gap-2">
-                <span className="h-2 w-2 rounded-full bg-attn" />
-                <Eyebrow tone="attn">1 decision waiting for you</Eyebrow>
-              </div>
-              <span className="text-[16px] font-bold leading-[1.3]">{d.summary}</span>
-              <div className="flex items-center justify-between">
-                <span className="text-[12px] text-muted">Reviewed by {d.reviewedBy} · {d.takes}</span>
-                <span className="flex h-9 items-center gap-1.5 rounded-[10px] bg-ink px-3.5 text-[13px] font-bold text-white">
-                  Review <ArrowRightIcon size={16} strokeWidth={2.2} />
+        <div className="flex flex-col gap-4 px-5 pb-5 pt-0.5">
+          {/* 2 · One thing, or the calm state */}
+          {thing ? (
+            <Link href={`/decision/${thing.id}`} className="flex flex-col gap-2 rounded-card-lg bg-ochre-soft p-4 text-ink" aria-label={`One thing this week: ${thing.summary}`}>
+              <span className="flex items-center gap-2">
+                <span className="h-2 w-2 rounded-full bg-ochre" />
+                <span className="text-[11px] font-bold uppercase tracking-[0.08em] text-ochre-text">One thing this week</span>
+              </span>
+              <span className="font-display text-[19px] leading-[1.3]">{thing.summary}</span>
+              <span className="flex items-center justify-between pt-1">
+                <span className="text-[13px] text-muted">{p.wealthManager.name.split(" ")[0]} reviewed · {thing.takes}</span>
+                <span className="flex h-[38px] items-center gap-1.5 rounded-[12px] bg-ink px-4 text-[13px] font-bold text-ground">
+                  Look <ArrowRightIcon size={16} strokeWidth={2.2} />
                 </span>
-              </div>
+              </span>
             </Link>
-          )}
-          {(rebalance === "approved" || rebalance === "placed") && (
-            <Link href="/activity" className="flex items-center gap-3 rounded-card-lg border border-line bg-accent-soft p-4 text-ink">
-              <IconBox tone="accent" size={32}><CheckIcon size={16} /></IconBox>
-              <div className="flex flex-1 flex-col gap-0.5">
-                <span className="text-[13px] font-bold">Rebalance placed. Settles by 1 Oct.</span>
-                <span className="text-[12px] text-muted">We’ll message you when the units land.</span>
-              </div>
-              <ChevronRightIcon size={18} className="text-muted" />
-            </Link>
+          ) : (
+            <div className="flex flex-col gap-2 rounded-card-lg bg-surface px-[18px] py-5">
+              <span className="font-display text-[21px] leading-[1.25]">Nothing needs you this week.</span>
+              <span className="text-[14px] leading-[1.5] text-ink-2">Your money is doing its job. I check in again on {nextCheckIn()}, or sooner if something changes.</span>
+              <span className="flex items-center gap-2 pt-1">
+                <Avatar initials={p.wealthManager.initials} size={26} />
+                <span className="text-[13px] text-muted">{p.wealthManager.name.split(" ")[0]}, your wealth manager</span>
+              </span>
+            </div>
           )}
 
-          {/* Where you stand */}
-          <Card className="flex flex-col gap-3">
-            <SectionTitle action={<Link href="/plan" className="text-[13px] font-bold text-accent">Full plan</Link>}>Where you stand</SectionTitle>
-            {p.goals.map((g) => {
-                            const target = g.id === "emergency" ? goals.emergency.target : g.id === "home" ? goals.home.total : goals.retire.corpusToday;
-              const pct = Math.round((g.saved / target) * 100);
-              const label =
-                g.id === "emergency"
-                  ? `On track · ${emergencyBy}`
-                  : g.id === "home"
-                    ? goals.home.onTrack ? `On track · ${goals.home.reach.year}` : `${goals.home.reach.year}, a little late`
-                    : retireShort > 0 ? `${inrFull(retireShort)} a month short` : `On track · ${goals.retire.year}`;
-              const tone = (g.id === "retire" && retireShort > 0) || (g.id === "home" && !goals.home.onTrack) ? "attn" : "accent";
-              return (
-                <div key={g.id} className="flex flex-col gap-1.5">
-                  <div className="flex items-baseline justify-between">
-                    <span className="text-[13px] font-semibold">{g.id === "home" ? "Home down payment" : g.id === "retire" ? "Retire at 60" : g.name}</span>
-                    <span className={`text-[12px] font-bold ${tone === "attn" ? "text-attn-text" : "text-accent"}`}>{label}</span>
-                  </div>
-                  <ProgressBar value={pct} tone={tone} />
-                  <span className="text-[11px] text-muted">
-                    {inr(g.saved)} of {inr(target)} · {inr(g.sip, { compact: false })} a month{g.id === "retire" && retireShort > 0 ? `, needs ${inrFull(goals.retire.needed)}` : ""}
-                  </span>
-                </div>
-              );
-            })}
-          </Card>
-
-          {/* How we get you there */}
-          <div className="flex flex-col gap-2.5">
-            <SectionTitle>How we get you there</SectionTitle>
-            <Card padded={false}>
-              <Row href={`/decision/rebalance-1`}>
-                <IconBox tone={rebalance === "proposed" ? "attn" : "accent"}><SwapIcon size={16} /></IconBox>
-                <RowText title="Rebalance the drifted large-caps" sub="Keeps your risk where the plan set it" />
-                <Pill tone={rebalance === "proposed" ? "attn" : "accent"}>{rebalance === "proposed" ? "Approve" : rebalance === "declined" ? "Declined" : "Placed"}</Pill>
-              </Row>
-              <Row href={`/decision/stepup-1`}>
-                <IconBox><GrowthIcon size={16} /></IconBox>
-                <RowText title={`Step up retirement SIP by ${inrFull(Math.max(goals.retire.shortBy, 4_000))} in October`} sub="Timed to your salary revision. Closes the gap." />
-                <Pill tone="accent">{stepup === "proposed" ? "Set up" : stepup === "declined" ? "Declined" : "Done"}</Pill>
-              </Row>
-              <Row href="/ask?q=tax-save">
-                <IconBox><DocIcon size={16} /></IconBox>
-                <RowText title="Save ₹31,000 more tax this year" sub="NPS under 80CCD(1B), HRA you're not claiming" />
-                <Pill tone="accent">See how</Pill>
-              </Row>
-              <Row last>
-                <IconBox tone="neutral"><ClockIcon size={16} /></IconBox>
-                <RowText title="Move ₹2.2L regular-plan fund to direct" sub="Saves ~₹2,400 a year in fees. Lock-in ends March." />
-                <Pill>Mar 2027</Pill>
-              </Row>
-            </Card>
-            <span className="text-[12px] leading-[1.45] text-muted">Every day we watch your funds, SIPs, EMIs and tax rules. You only hear from us when there’s a decision worth your minute.</span>
-          </div>
-
-          {/* Health strip */}
-          <div className="grid grid-cols-3 gap-2">
-            <Tile label="Emergency fund" value="4.2 mo" pct={70} tone="attn" foot="Target 6 mo" footTone="attn" />
-            <Tile label="Term cover" value="₹1 Cr" pct={100} tone="accent" foot="Adequate" footTone="accent" />
-            <Tile label="Tax saved FY26" value="₹46.8k" pct={60} tone="accent" foot="₹31k more possible" />
-          </div>
-
-          {/* Spending */}
-          <Link href="/spending" className="flex items-center gap-3 rounded-card border border-line bg-surface px-3.5 py-3 text-ink">
-            <div className="flex flex-1 flex-col gap-1.5">
-              <div className="flex items-baseline justify-between">
-                <span className="text-[13px] font-bold">Spent this month</span>
-                <span className="text-[13px] font-bold">
-                  {inr(p.spending.total, { compact: false })} <span className="font-semibold text-accent">· 6% under usual</span>
-                </span>
-              </div>
-              <div className="flex h-2 overflow-hidden rounded-full bg-sunken">
-                {p.spending.categories.map((c) => (
-                  <div key={c.key} style={{ width: `${(c.amount / p.spending.total) * 100}%`, background: c.color }} />
+          {/* 3 · What moved */}
+          <section className="flex flex-col gap-2" aria-label="What moved this month">
+            <span className="pl-1 text-[11px] font-bold uppercase tracking-[0.08em] text-muted">What moved</span>
+            {moved.length ? (
+              <div className="flex flex-col overflow-hidden rounded-card-lg bg-surface">
+                {moved.map((r, i) => (
+                  <Link key={r.key} href={r.href} className={cx("flex min-h-[54px] items-center gap-3 px-4 py-2 text-ink", i < moved.length - 1 && "border-b border-line")}>
+                    <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+                      <span className="text-[15px] font-semibold">{r.label}</span>
+                      <span className="text-[13px] text-muted">{r.sub}</span>
+                    </span>
+                    <span className="font-display text-[17px] font-semibold">{r.value}</span>
+                    <ChevronRightIcon size={16} className="text-faint" />
+                  </Link>
                 ))}
               </div>
-              <span className="text-[12px] font-semibold text-attn-text">3 spends need a label · 2 unused subscriptions found</span>
-            </div>
-            <ChevronRightIcon size={18} className="text-muted" />
-          </Link>
+            ) : (
+              <div className="rounded-card-lg bg-surface px-4 py-3.5 text-[14px] text-ink-2">Quiet month. Nothing moved more than usual.</div>
+            )}
+          </section>
 
-          {/* Watched today */}
-          <div className="flex flex-col gap-2.5">
-            <SectionTitle action={<Link href="/activity" className="text-[13px] font-bold text-accent">See all</Link>}>Your CFO watched today</SectionTitle>
-            <Card padded={false}>
-              <Row>
-                <IconBox><CheckIcon size={16} strokeWidth={2} /></IconBox>
-                <RowText title="Nifty fell 1.8%. No action needed." sub="Your plan assumes swings like this. Holding." />
-              </Row>
-              <Row>
-                <IconBox><CheckIcon size={16} strokeWidth={2} /></IconBox>
-                <RowText title="SIP of ₹35,000 went through" sub="Split across 3 goals as planned." />
-              </Row>
-              <Row last>
-                <IconBox tone="neutral"><ClockIcon size={16} /></IconBox>
-                <RowText title="Home loan EMI ₹38,400 due 5 Oct" sub="Balance is sufficient. Nothing to do." />
-              </Row>
-            </Card>
-          </div>
+          {/* 4 · Ask */}
+          <AskBlock />
 
-          {/* Wealth manager */}
-          <Card className="flex items-center gap-3 px-3.5 py-3">
-            <Avatar initials={p.wealthManager.initials} />
-            <div className="flex flex-1 flex-col gap-0.5">
-              <span className="text-[13px] font-bold">{p.wealthManager.name}, your wealth manager</span>
-              <span className="text-[12px] text-muted">SEBI RIA · reviewed your plan on 1 Sep</span>
-            </div>
-            <Link href="/ask" className="flex h-9 items-center rounded-[10px] border border-accent px-3 text-[13px] font-bold text-accent">Talk</Link>
-          </Card>
-
-          {/* Prototype footer */}
-          <span className="pb-1 text-center text-[12px] text-muted">
-            This is a prototype with a demo account. <Link href="/settings" className="font-bold text-accent">Start over</Link>
+          <span className="pb-1 pt-1 text-center text-[12px] text-faint">
+            Prototype with a demo account · <Link href="/settings" className="font-bold text-accent">Start over</Link>
           </span>
         </div>
       </Screen>
@@ -215,27 +118,61 @@ export default function Home() {
   );
 }
 
-function Tile({ label, value, pct, tone, foot, footTone }: { label: string; value: string; pct: number; tone: "accent" | "attn"; foot: string; footTone?: "accent" | "attn" }) {
-  const ft = footTone === "attn" ? "text-attn-text" : footTone === "accent" ? "text-accent" : "text-muted";
+function AskBlock() {
+  const router = useRouter();
+  const track = useStore((s) => s.track);
+  const [text, setText] = useState("");
+  const chips = CHIP_IDS.map((id) => answers.find((a) => a.id === id)).filter((a): a is NonNullable<typeof a> => !!a);
+
+  function submit(e: FormEvent) {
+    e.preventDefault();
+    const t = text.trim();
+    if (!t) return;
+    track("home_ask", { q: t });
+    router.push(`/ask?text=${encodeURIComponent(t)}`);
+  }
+
   return (
-    <div className="flex flex-col gap-1.5 rounded-card border border-line bg-surface p-3">
-      <span className="text-[11px] font-semibold text-muted">{label}</span>
-      <span className="font-display text-[20px]">{value}</span>
-      <ProgressBar value={pct} tone={tone} height={5} />
-      <span className={`text-[11px] font-semibold ${ft}`}>{foot}</span>
-    </div>
+    <section className="flex flex-col gap-2.5" aria-label="Ask your CFO">
+      <label htmlFor="home-ask" className="pl-1 text-[11px] font-bold uppercase tracking-[0.08em] text-muted">Ask your CFO</label>
+      <form onSubmit={submit} className="flex h-[52px] items-center gap-2 rounded-[18px] bg-surface pl-[18px] pr-2">
+        <input
+          id="home-ask"
+          value={text}
+          onChange={(e) => setText(e.target.value)}
+          placeholder="Ask anything about your money"
+          autoComplete="off"
+          className="min-w-0 flex-1 bg-transparent text-[16px] text-ink outline-none placeholder:text-faint"
+        />
+        <button type="submit" aria-label="Send" className="flex h-[38px] w-[38px] items-center justify-center rounded-[12px] bg-accent text-ground">
+          <SendIcon size={18} />
+        </button>
+      </form>
+      <div className="flex flex-wrap gap-2">
+        {chips.map((a) => (
+          <Link key={a.id} href={`/ask?q=${a.id}`} className="inline-flex h-9 items-center whitespace-nowrap rounded-full bg-surface px-3.5 text-[13px] font-semibold text-ink">
+            {a.question}
+          </Link>
+        ))}
+      </div>
+      <Link href="/ask" className="pl-1 text-[13px] text-muted">
+        What people like you asked this week →
+      </Link>
+    </section>
   );
 }
 
-function Sparkline({ points }: { points: number[] }) {
-  const w = 120;
+/** Twelve months, one line, no axes, never red. */
+function Sparkline({ points, className }: { points: number[]; className?: string }) {
+  const w = 350;
+  const h = 40;
   const step = w / (points.length - 1);
-  const d = points.map((y, i) => `${i === 0 ? "M" : "L"}${(i * step).toFixed(1)} ${y + 4}`).join(" ");
+  const d = points.map((y, i) => `${i === 0 ? "M" : "L"}${(i * step).toFixed(1)} ${(y + 4).toFixed(1)}`).join(" ");
   const last = points[points.length - 1] + 4;
   return (
-    <svg width={w} height={44} viewBox={`0 0 ${w} 44`} fill="none" aria-hidden="true">
-      <path d={d} stroke="#9FD9C4" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" />
-      <circle cx={w} cy={last} r={3} fill="#9FD9C4" />
+    <svg width="100%" height={h} viewBox={`0 0 ${w} ${h}`} preserveAspectRatio="none" fill="none" aria-hidden="true" className={cx("transition-opacity duration-500", className)}>
+      <path d={d} stroke="var(--sky-line)" strokeWidth={2} strokeLinecap="round" strokeLinejoin="round" vectorEffect="non-scaling-stroke" />
+      <circle cx={w} cy={last} r={3.5} fill="var(--sky-line)" />
     </svg>
   );
 }

@@ -9,21 +9,12 @@ load.** A personal CFO, built by real wealth managers, watches everything and
 brings the user one decision at a time. The user approves; a named human is
 accountable.
 
-## 0 · Decisions: settled and pending
+## 0 · Decisions (all settled, 1 Oct 2026)
 
-Settled (1 Oct 2026):
-
-- **P1 Home hero: number-first.** Big ₹ net worth, monthly cadence, verdict in words under it.
-- **P2 Bottom tabs: 4** — Home · Portfolio · Plan · Ask. Activity becomes "History", reached from settings and from the one-thing card's trail.
-- **P4 Where it's built: in the cloud session**, pushed to `design-v2`; Nikhil reviews on the Vercel preview and his phone.
-
-Pending — do not implement, ask Nikhil:
-
-| # | Open question | Where to look |
-|---|---|---|
-| P3 | Direction **B** dusk & cream (light, sky band) or **C** night sky (full dark) | Canvas row "Design v2 — Home"; copies in `spec/HomeV2B*.dc.html` and `spec/HomeV2C*.dc.html` |
-
-Until P3 is settled, Phase A builds only what both directions share: type scale, radii, borderless cards, the `SkyBand` component with its gradients behind a theme switch, copy pass.
+- **P1 Home hero: number-first.** Big ₹ net worth, monthly cadence, verdict in words under it. No date, no greeting in the band.
+- **P2 Bottom tabs: 4** — Home · Portfolio · Plan · Ask. Activity becomes "History", reached from Settings (the gear on Home) and from the "placed/settled" rows in What moved.
+- **P3 Direction: B, dusk & cream.** Cream page; the sky band on Home follows the clock and goes dark only at night. Samples that were chosen: `spec/HomeV2B.dc.html`, `spec/HomeV2BCalm.dc.html`.
+- **P4 Built in the cloud session**, one phase per commit on `design-v2`; Nikhil reviews on the Vercel preview and his phone.
 
 ## 1 · Principles
 
@@ -135,9 +126,10 @@ SectionTitle, Card, DarkCard, Note, Row, RowText, IconBox, Pill, Chip,
 Segmented, OptionGroup, Button, ProgressBar, Avatar. Plus BottomNav, Drawer,
 Feedback, InstallBanner, PhoneFrame, inputs (MoneyInput), portfolio header.
 
-Planned for v2 (build in Phase A/B): `SkyBand` (time-of-day gradient + greeting
-+ hero), `OneThing` (the single decision card, and its calm empty state),
-`MovedRow` (a "what moved" line), `AskBlock` (input + state-aware chips).
+Added in v2: `SkyBand` (time-of-day gradient, sun/moon, hills; `--sky-line` for
+the sparkline colour), `CountUp` (unit-stable rupee count-up), and in
+`app/home/page.tsx` the one-thing card, the What-moved rows and the Ask block,
+fed by `lib/home.ts` (pure: `oneThing`, `verdict`, `whatMoved`).
 
 ## 10 · Phases and definition of done
 

@@ -48,7 +48,8 @@ npm run flows    # click-through checks: core loop, onboarding, informed, ship
 | 2 · Money | Portfolio (allocation · holdings · performance), Plan, Ask with scripted answers and call booking | ✅ |
 | 3 · Onboarding | Connect, About you (bank-connected and self-reported), Goals with the questions drawer and the "how we sized this" drawer; formulas in `lib/goals.ts` recompute live | ✅ |
 | 4 · Informed | Notifications with per-category channel settings, WhatsApp preview, Spending (label + add spends), Scenarios, simulations (car with editable inputs; house-2029, retire-55, raise, job-loss) on `lib/scenarios.ts` | ✅ |
-| 5 · Ship | Install nudge (iOS hint / Android prompt), tester settings with reset at `/settings` (tap the avatar on Home) | ✅ |
+| 5 · Ship | Install nudge (iOS hint / Android prompt), tester settings with reset at `/settings` (the gear on Home) | ✅ |
+| v2 · Home | Sky band that follows the clock, one number + verdict, one thing (or the calm state), what moved, Ask; four tabs; History under Settings | ✅ |
 
 ## Layout
 

@@ -1,7 +1,7 @@
 # Home v2 — spec
 
-Status: **structure approved (number-first hero, 4 tabs); palette pending P3 in
-`DESIGN.md`.** Samples: `spec/HomeV2*.dc.html`. Build in Phase B. Read `DESIGN.md` first; this document only says what Home shows and
+Status: **built (Phase B, 1 Oct 2026)** per the decisions in `DESIGN.md` §0.
+Samples that were chosen: `spec/HomeV2B*.dc.html`. Logic: `lib/home.ts`. Read `DESIGN.md` first; this document only says what Home shows and
 where each line comes from.
 
 ## Why Home changes
@@ -22,9 +22,8 @@ in `DESIGN.md` §1.3.
 
 ```
 ┌───────────────────────────────────┐
-│ 1 SKY BAND                        │  time-of-day gradient, greeting,
-│   Good evening, Aditya            │  the one number, the verdict
-│   ₹48.6L                          │
+│ 1 SKY BAND                        │  time-of-day gradient, the gear,
+│   ₹48.6L                          │  the one number, the verdict
 │   Up ₹1.2L this month. On plan.   │
 ├───────────────────────────────────┤
 │ 2 ONE THING THIS WEEK             │  ochre card, or the calm empty state
@@ -42,11 +41,12 @@ over") stays, muted, under block 4.
 
 ### 1 · Sky band
 
-- Gradient by local hour (client-only, after `hydrated`, same pattern as the
-  greeting today): dawn 05–09, day 09–17, dusk 17–20, night 20–05. A thin
+- Gradient by local hour (client-only, after `hydrated`): dawn 05–09, day
+  09–17, dusk 17–20, night 20–05 (`components/SkyBand.tsx`). A thin
   horizon line and two soft hills in `ground` at the bottom edge blend the band
   into the page.
-- Greeting + date: `greeting()`, `dayLine()` from `lib/format.ts` (exist).
+- No greeting, no date (decided 1 Oct): the band holds the settings gear, the
+  number, the verdict and the line. Nothing else.
 - The number: `persona.netWorth.total` → `inr()` → "₹48.6L". Count-up on first
   paint, 450ms, skipped under reduced motion.
 - The verdict, one sentence, two parts:

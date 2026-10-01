@@ -37,7 +37,9 @@ export const persona = {
     return this.income.monthly + this.income.other - this.expenses.monthly;
   },
 
-  netWorth: { total: 4_860_000, assets: 9_090_000, loans: 4_230_000, monthChange: 120_000, monthChangePct: 2.5 },
+  netWorth: { total: 4_860_000, assets: 9_090_000, loans: 4_230_000, monthChange: 120_000, monthChangePct: 2.5, investmentsChange: 94_000 },
+  /** Day of the month every SIP runs. */
+  sipDay: 5,
   sparkline: [2, 30, 34, 32, 22, 24, 14, 16, 6],
 
   loans: [{ id: "home", label: "Home loan", lender: "SBI", outstanding: 4_230_000, rate: 8.6, emi: 38_400, yearsLeft: 14, dueDay: 5 }],
