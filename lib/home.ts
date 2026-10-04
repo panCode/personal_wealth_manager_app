@@ -42,25 +42,53 @@ export function verdict(goals: GoalsComputed, ob: Onboarding, live: Live): { mov
 
 export type MovedRow = { key: string; label: string; sub: string; value: string; href: string };
 
+function sameMonth(a: Date, b: Date) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth();
+}
+
+/** When a placed order settles: the time it was placed plus the decision's settle days. */
+function settleDate(at: string, d: Decision) {
+  const s = new Date(at);
+  s.setDate(s.getDate() + d.settleDays);
+  return s;
+}
+
+/**
+ * Placed orders whose settle date has passed, with the moment they settled.
+ * No exchange calls back in the prototype, so the hydrator marks these settled
+ * once per load and Home and History both move on.
+ */
+export function overdueOrders(live: Live, now = new Date()): Array<{ id: string; settledAt: string }> {
+  const out: Array<{ id: string; settledAt: string }> = [];
+  for (const [id, r] of Object.entries(live)) {
+    const d = decisions[id];
+    if (!d || r.status !== "placed") continue;
+    const s = settleDate(r.at, d);
+    if (s.getTime() <= now.getTime()) out.push({ id, settledAt: s.toISOString() });
+  }
+  return out;
+}
+
 /**
  * Up to three rows, in priority order, each only when its change clears a
  * threshold. A quiet month returns fewer rows; the screen says so instead of
- * padding.
+ * padding. At most one order row, the most recent this month, so a busy
+ * approver still sees Investments and Spending below it.
  */
-export function whatMoved(live: Live, ob: Onboarding): MovedRow[] {
+export function whatMoved(live: Live, ob: Onboarding, now = new Date()): MovedRow[] {
   const rows: MovedRow[] = [];
   const p = persona;
 
-  // 1 · the user's own orders, placed or settled
-  for (const id of Object.keys(live)) {
+  // 1 · the user's most recent order this month, placed or settled
+  const latest = Object.entries(live)
+    .filter(([id, r]) => decisions[id] && (r.status === "placed" || r.status === "settled") && sameMonth(new Date(r.at), now))
+    .sort(([, a], [, b]) => b.at.localeCompare(a.at))[0];
+  if (latest) {
+    const [id, r] = latest;
     const d = decisions[id];
-    const r = live[id];
-    if (!d || !r) continue;
     if (r.status === "placed") {
-      const settles = new Date(r.at);
-      settles.setDate(settles.getDate() + d.settleDays);
-      rows.push({ key: `placed-${id}`, label: `${shortName(d)} placed`, sub: `settles by ${dayMonth(settles.toISOString())}`, value: inr(d.legs.reduce((s, l) => s + l.amount, 0) / Math.max(1, d.legs.length)), href: "/activity" });
-    } else if (r.status === "settled") {
+      rows.push({ key: `placed-${id}`, label: `${shortName(d)} placed`, sub: `settles by ${dayMonth(settleDate(r.at, d).toISOString())}`, value: inr(d.legs.reduce((s, l) => s + l.amount, 0) / Math.max(1, d.legs.length)), href: "/activity" });
+    } else {
       rows.push({ key: `settled-${id}`, label: `${shortName(d)} settled`, sub: `done ${dayMonth(r.at)}`, value: "Done", href: "/activity" });
     }
   }

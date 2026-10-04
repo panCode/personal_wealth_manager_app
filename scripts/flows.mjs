@@ -68,6 +68,13 @@ await section("core", async (page) => {
   c.check("calm state once nothing is pending", (await page.getByText("Nothing needs you this week.").count()) === 1);
   c.check("verdict: on plan", (await page.getByText("On plan.").count()) === 1);
   await page.screenshot({ path: `${dir}/flow_home_calm.png` });
+  // What moved keeps Spending after two orders: at most one order row, the latest
+  c.check("spending keeps its slot after two orders", (await page.locator('a[href="/spending"]').count()) === 1);
+  c.check("only the latest order shows", (await page.getByText("SIP step-up placed").count()) === 1 && (await page.getByText("Rebalance placed").count()) === 0);
+  await page.locator('a[href="/spending"]').click();
+  await page.waitForURL("**/spending");
+  c.check("spending opens from Home", (await page.locator("h1").textContent()) === "Spending" && (await page.getByText("₹78,400").count()) >= 1);
+  await go(page, "/home");
   // Ask from Home
   await page.locator("#home-ask").fill("Can I prepay my home loan?");
   await page.locator("#home-ask").press("Enter");

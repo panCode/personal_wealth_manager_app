@@ -82,7 +82,11 @@ its threshold is met. Row = label · one number · one phrase.
 | Spending | `persona.spending.total` vs `usual` | ≥ 5% either way | "Spending ₹78k · ₹4,600 under usual" |
 | SIPs | sum of `goals[].sip` (12k + 28k + 20k) | ran this month (persona: the 5th) | "SIPs ₹60k went in on the 5th" |
 | Milestone | any goal `saved` crossing a round number this month | crossed | "Home fund crossed ₹11.5L" |
-| Order settled | store decision with status `placed` → `settled` | this month | "Rebalance settled · 1 Oct" |
+| Order placed / settled | the most recent store decision with status `placed` or `settled`, this month only; a placed order becomes settled automatically once its `settleDays` have passed (`StoreHydrator`) | this month | "Rebalance placed · settles by 3 Oct" / "Rebalance settled · done 3 Oct" |
+
+The order row goes first and there is never more than one, so Investments and
+Spending are not pushed out by a busy approver. Logic: `whatMoved` and
+`overdueOrders` in `lib/home.ts`.
 
 Quiet month: the block collapses to one line, "Quiet month. Nothing moved more
 than usual." Do not pad.
@@ -97,7 +101,7 @@ Activity).
   seeding in `app/ask/page.tsx`) so the answer renders on the Ask screen with
   its chips and booking.
 - Three chips from state, using `lib/answers.ts` ids. Pick order:
-  has a loan → `prepay`; has health policy → `insurance`; always → `spending`;
+  has a loan → `prepay`; has health policy → `insurance`; bank linked → `spends-3m`;
   then fill from `suggested[]` minus already-asked. Chip copy is the answer's
   `question`.
 - Below the chips, muted: "What people like you asked this week · 3" linking to
@@ -119,7 +123,7 @@ Activity).
 2. Nothing pending (after approving `rebalance-1` and `stepup-1`).
 3. Quiet month (no row clears its threshold).
 4. Bank not linked (`onboarding.connections.bank === false`): verdict line
-   changes; Spending row absent; chip set swaps `spending` for `sip-house`.
+   changes; Spending row absent; chip set swaps `spends-3m` for `sip-house`.
 5. Night, 11 pm: sky is night; everything still legible (`ink` on the light
    lower half; `surface` text only inside the dark top).
 
