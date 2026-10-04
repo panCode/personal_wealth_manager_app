@@ -44,7 +44,8 @@ await section("core", async (page) => {
   await go(page, "/home");
   const thing = page.getByRole("link", { name: /One thing this week/ });
   c.check("one thing shows the rebalance", /Rebalance/.test((await thing.getAttribute("aria-label")) ?? ""));
-  c.check("verdict: one goal needs a nudge", (await page.getByText("One goal needs a nudge.").count()) === 1);
+  c.check("two deltas under the number", (await page.getByText("this month", { exact: true }).count()) === 1 && (await page.getByText("all time", { exact: true }).count()) === 1);
+  c.check("no words about the plan under the number", (await page.getByText(/needs a nudge|On plan\./).count()) === 0);
   c.check("nothing red or amber on Home", (await page.locator('[class*="attn"], [class*="danger"]').count()) === 0);
   await thing.click();
   await page.waitForURL("**/decision/rebalance-1");
@@ -65,8 +66,7 @@ await section("core", async (page) => {
   c.check("placed row survives reload", (await page.getByText("Rebalance placed").count()) === 1);
   await approve(page, "stepup-1");
   await go(page, "/home");
-  c.check("calm state once nothing is pending", (await page.getByText("Nothing needs you this week.").count()) === 1);
-  c.check("verdict: on plan", (await page.getByText("On plan.").count()) === 1);
+  c.check("nothing shown once nothing is pending", (await page.getByText(/One thing this week|Nothing needs you/).count()) === 0);
   await page.screenshot({ path: `${dir}/flow_home_calm.png` });
   // What moved keeps Spending after two orders: at most one order row, the latest
   c.check("spending keeps its slot after two orders", (await page.locator('a[href="/spending"]').count()) === 1);

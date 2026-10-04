@@ -37,7 +37,9 @@ export const persona = {
     return this.income.monthly + this.income.other - this.expenses.monthly;
   },
 
-  netWorth: { total: 4_860_000, assets: 9_090_000, loans: 4_230_000, monthChange: 120_000, monthChangePct: 2.5, investmentsChange: 94_000 },
+  /** `allTimeChange` is what the money has earned since the first rupee went in:
+   *  the same figure as portfolio.gains, so Home and Performance never disagree. */
+  netWorth: { total: 4_860_000, assets: 9_090_000, loans: 4_230_000, monthChange: 120_000, monthChangePct: 2.5, investmentsChange: 94_000, allTimeChange: 2_270_000 },
   /** Day of the month every SIP runs. */
   sipDay: 5,
   sparkline: [2, 30, 34, 32, 22, 24, 14, 16, 6],

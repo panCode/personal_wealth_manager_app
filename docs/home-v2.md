@@ -23,10 +23,11 @@ in `DESIGN.md` §1.3.
 ```
 ┌───────────────────────────────────┐
 │ 1 SKY BAND                        │  time-of-day gradient, the gear,
-│   ₹48.6L                          │  the one number, the verdict
-│   Up ₹1.2L this month. On plan.   │
+│   ₹48.6L                          │  the one number, two deltas
+│   +₹1.2L this month · +₹22.7L     │
+│   all time                        │
 ├───────────────────────────────────┤
-│ 2 ONE THING THIS WEEK             │  ochre card, or the calm empty state
+│ 2 ONE THING THIS WEEK             │  ochre card; absent when nothing is pending
 ├───────────────────────────────────┤
 │ 3 WHAT MOVED                      │  0–3 generated rows
 ├───────────────────────────────────┤
@@ -49,12 +50,11 @@ over") stays, muted, under block 4.
   number, the verdict and the line. Nothing else.
 - The number: `persona.netWorth.total` → `inr()` → "₹48.6L". Count-up on first
   paint, 450ms, skipped under reduced motion.
-- The verdict, one sentence, two parts:
-  - what moved: `persona.netWorth.monthChange` → "Up ₹1.2L this month." /
-    "Down ₹40k this month." / "Flat this month."
-  - what it means: from `computeGoals()`: all `onTrack` → "On plan."; one goal
-    short → "One goal needs a nudge." (the nudge is then block 2); not linked →
-    "Link your bank to see the full picture."
+- Under the number, two deltas and nothing else (decided 4 Oct): this month
+  (`persona.netWorth.monthChange`) and all time (`persona.netWorth.allTimeChange`,
+  the same figure as `portfolio.gains`, so Home and Performance agree). Signed,
+  in ink, never coloured. No sentence about the plan, no count of nudges; the
+  plan's state lives in Plan.
 - P1 settled: number-first, as drawn above.
 - A 12-month line (`persona.sparkline`), 60px tall, no axes, no dots, single
   `accent` stroke, never red.
@@ -67,9 +67,8 @@ At most one. Card in `ochre-soft` with an `ochre` dot, eyebrow "ONE THING THIS
 WEEK", title = decision `title`, meta = "Meera reviewed · takes 1 min", action
 "Look →" to `/decision/[id]`.
 
-Empty state (no `proposed` decision): a plain card, no colour —
-"Nothing needs you this week. Your money is doing its job. — Meera". This state
-must look *better* than the card with a decision, not emptier.
+No `proposed` decision (decided 4 Oct): the block is absent. Nothing is shown,
+not a calm card. Home then opens with the band and goes straight to What moved.
 
 ### 3 · What moved
 
@@ -120,19 +119,19 @@ Activity).
 ## States to design, not just the happy path
 
 1. Decision pending (today's default).
-2. Nothing pending (after approving `rebalance-1` and `stepup-1`).
+2. Nothing pending (after approving `rebalance-1` and `stepup-1`): no block 2.
 3. Quiet month (no row clears its threshold).
-4. Bank not linked (`onboarding.connections.bank === false`): verdict line
-   changes; Spending row absent; chip set swaps `spends-3m` for `sip-house`.
+4. Bank not linked (`onboarding.connections.bank === false`): Spending row
+   absent; chip set swaps `spends-3m` for `sip-house`.
 5. Night, 11 pm: sky is night; everything still legible (`ink` on the light
    lower half; `surface` text only inside the dark top).
 
 ## Acceptance (add to `scripts/flows.mjs`, section `home`)
 
-- Home renders exactly four blocks (count `section` elements or a data-attr).
+- Home renders at most four blocks; three when nothing is pending.
 - No `danger`/`attn` colour on Home when no decision is overdue.
 - After approving `rebalance-1`, the one-thing card shows `stepup-1`; after
-  approving that too, the empty state copy is present.
+  approving that too, no one-thing block is rendered.
 - Submitting a question from Home lands on `/ask` with that question as the
   first message.
 - `document.documentElement.scrollWidth === 390` at 390 wide.

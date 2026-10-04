@@ -7,29 +7,27 @@ import { BottomNav } from "@/components/BottomNav";
 import { CountUp } from "@/components/CountUp";
 import { ArrowRightIcon, ChevronRightIcon, GearIcon, SendIcon } from "@/components/icons";
 import { SkyBand } from "@/components/SkyBand";
-import { Avatar, Screen, cx } from "@/components/ui";
+import { Screen, cx } from "@/components/ui";
 import { answers } from "@/lib/answers";
 import { inrLike } from "@/lib/format";
-import { askChips, nextCheckIn, oneThing, verdict, whatMoved } from "@/lib/home";
+import { askChips, deltas, oneThing, whatMoved } from "@/lib/home";
 import { persona } from "@/lib/persona";
 import { useStore } from "@/lib/store";
-import { useGoals } from "@/lib/useGoals";
 
 const p = persona;
 
 /**
- * 5 · Home, v2 (docs/home-v2.md). Four blocks: the sky band with the one
- * number and its verdict; the one thing that needs the user, or the calm
- * state; what moved this month; and Ask. Nothing that stands still.
+ * 5 · Home, v2 (docs/home-v2.md). The sky band with the one number and its
+ * two deltas; the one thing that needs the user (absent when nothing does);
+ * what moved this month; and Ask. Nothing that stands still, no words about
+ * the plan.
  */
 export default function Home() {
   const live = useStore((s) => s.decisions);
   const ob = useStore((s) => s.onboarding);
   const hydrated = useStore((s) => s.hydrated);
-  const goals = useGoals();
 
   const thing = oneThing(live);
-  const v = verdict(goals, ob, live);
   const moved = whatMoved(live, ob);
 
   return (
@@ -46,8 +44,14 @@ export default function Home() {
             <div className="flex flex-col gap-1.5 pt-1">
               <span className="sr-only">Net worth</span>
               <CountUp value={p.netWorth.total} format={inrLike(p.netWorth.total)} className="font-display display-soft text-[52px] leading-none" />
-              <span className="text-[16px] leading-[1.4]">
-                {v.moved} <strong className="font-bold">{v.meaning}</strong>
+              <span className="flex flex-wrap items-baseline gap-x-2 text-[15px] leading-[1.4]">
+                {deltas().map((d, i) => (
+                  <span key={d.label} className="flex items-baseline gap-1.5">
+                    {i > 0 && <span className="opacity-50">·</span>}
+                    <span className="font-display text-[20px] font-semibold">{d.value}</span>
+                    <span className="opacity-80">{d.label}</span>
+                  </span>
+                ))}
               </span>
             </div>
             <Sparkline points={p.sparkline} className={cx("mt-3", hydrated ? "opacity-100" : "opacity-0")} />
@@ -55,8 +59,8 @@ export default function Home() {
         </SkyBand>
 
         <div className="flex flex-col gap-4 px-5 pb-5 pt-0.5">
-          {/* 2 · One thing, or the calm state */}
-          {thing ? (
+          {/* 2 · One thing. When nothing needs the user, nothing is shown. */}
+          {thing && (
             <Link href={`/decision/${thing.id}`} className="flex flex-col gap-2 rounded-card-lg bg-ochre-soft p-4 text-ink" aria-label={`One thing this week: ${thing.summary}`}>
               <span className="flex items-center gap-2">
                 <span className="h-2 w-2 rounded-full bg-ochre" />
@@ -70,15 +74,6 @@ export default function Home() {
                 </span>
               </span>
             </Link>
-          ) : (
-            <div className="flex flex-col gap-2 rounded-card-lg bg-surface px-[18px] py-5">
-              <span className="font-display text-[21px] leading-[1.25]">Nothing needs you this week.</span>
-              <span className="text-[14px] leading-[1.5] text-ink-2">Your money is doing its job. I check in again on {nextCheckIn()}, or sooner if something changes.</span>
-              <span className="flex items-center gap-2 pt-1">
-                <Avatar initials={p.wealthManager.initials} size={26} />
-                <span className="text-[13px] text-muted">{p.wealthManager.name.split(" ")[0]}, your wealth manager</span>
-              </span>
-            </div>
           )}
 
           {/* 3 · What moved */}

@@ -5,7 +5,6 @@
  */
 import { suggested } from "./answers";
 import { decisions, type Decision } from "./decisions";
-import type { GoalsComputed } from "./goals";
 import { dayMonth, inr, inrFull } from "./format";
 import { persona } from "./persona";
 import type { DecisionRecord, Onboarding } from "./store";
@@ -30,14 +29,13 @@ export function oneThing(live: Live): Decision | null {
   return id ? decisions[id] : null;
 }
 
-/** "Up ₹1.2L this month. On plan." — what moved, then what it means. */
-export function verdict(goals: GoalsComputed, ob: Onboarding, live: Live): { moved: string; meaning: string } {
-  const c = persona.netWorth.monthChange;
-  const moved = c > 0 ? `Up ${inr(c)} this month.` : c < 0 ? `Down ${inr(-c)} this month.` : "Flat this month.";
-  if (!ob.connections.bank) return { moved, meaning: "Link your bank to see the full picture." };
-  const retireShort = statusOf(live, "stepup-1") === "proposed" ? goals.retire.shortBy : 0;
-  const offTrack = [goals.emergency.onTrack, goals.home.onTrack, retireShort <= 0].filter((ok) => !ok).length;
-  return { moved, meaning: offTrack === 0 ? "On plan." : offTrack === 1 ? "One goal needs a nudge." : `${offTrack} goals need a nudge.` };
+/** "+₹1.2L this month · +₹22.7L all time": two numbers, no words about the plan. */
+export function deltas(): Array<{ value: string; label: string }> {
+  const sign = (n: number) => (n > 0 ? "+" : n < 0 ? "−" : "");
+  return [
+    { value: `${sign(persona.netWorth.monthChange)}${inr(Math.abs(persona.netWorth.monthChange))}`, label: "this month" },
+    { value: `${sign(persona.netWorth.allTimeChange)}${inr(Math.abs(persona.netWorth.allTimeChange))}`, label: "all time" },
+  ];
 }
 
 export type MovedRow = { key: string; label: string; sub: string; value: string; href: string };
@@ -126,11 +124,4 @@ export function askChips(ob: Onboarding): string[] {
   picks.push(ob.connections.bank ? "spends-3m" : "sip-house");
   for (const id of suggested) if (picks.length < 3 && !picks.includes(id)) picks.push(id);
   return picks.slice(0, 3);
-}
-
-/** Next month's SIP date, for the calm card's "next check-in" line. */
-export function nextCheckIn(): string {
-  const d = new Date();
-  d.setMonth(d.getMonth() + 1, persona.sipDay);
-  return dayMonth(d.toISOString());
 }

@@ -11,7 +11,7 @@ accountable.
 
 ## 0 · Decisions (all settled, 1 Oct 2026)
 
-- **P1 Home hero: number-first.** Big ₹ net worth, monthly cadence, verdict in words under it. No date, no greeting in the band.
+- **P1 Home hero: number-first.** Big ₹ net worth; under it two signed deltas, this month and all time, and no words about the plan (4 Oct). No date, no greeting in the band.
 - **P2 Bottom tabs: 4** — Home · Portfolio · Plan · Ask. Activity becomes "History", reached from Settings (the gear on Home) and from the "placed/settled" rows in What moved.
 - **P3 Direction: B, dusk & cream.** Cream page; the sky band on Home follows the clock and goes dark only at night. Samples that were chosen: `spec/HomeV2B.dc.html`, `spec/HomeV2BCalm.dc.html`.
 - **P4 Built in the cloud session**, one phase per commit on `design-v2`; Nikhil reviews on the Vercel preview and his phone.
@@ -19,7 +19,8 @@ accountable.
 ## 1 · Principles
 
 1. **Calm is the absence of alarms.** Nothing on Home is red unless an action is
-   overdue. The app must be able to say "Nothing needs you this week" and mean it.
+   overdue. When nothing needs the user, Home shows nothing for it: no card, no
+   reassurance copy (4 Oct). Absence is the message.
 2. **One thing at a time.** At most one open decision is shown anywhere. Never a
    list of alerts, never a badge count greater than 1.
 3. **Show what moves, not what stands.** The "since you last opened" test: every
@@ -28,8 +29,10 @@ accountable.
    insured, a loan tenure) live in Plan/Portfolio or behind Ask, and surface on
    Home only on the day they change, as a decision. Targets are context;
    progress is content.
-4. **Words first, digits second.** "Up ₹1.2L this month. On plan." before any
-   chart. A sentence invites understanding; a score invites comparison.
+4. **Words first, digits second** everywhere except the hero. The hero is
+   numbers only: the total and its two deltas. Elsewhere "You can afford it. The
+   bigger home moves from 2031 to 2033." before any chart; a sentence invites
+   understanding, a score invites comparison.
 5. **Humans are the warmth.** Meera (the wealth manager) is the face, not a
    mascot. Her name appears wherever a human stands behind a number.
 
@@ -112,8 +115,8 @@ Never colour a number by its sign: a negative return is written in words, in ink
   from 2031 to 2033."
 - A human name wherever a human stands behind it: "Meera reviewed · 1 min".
 - Typographic apostrophes in JSX text (’), never `'` (lint rule).
-- The calm states get the best writing: "Nothing needs you this week. Your
-  money is doing its job."
+- Calm states are silent on Home; where a screen does need to say nothing is
+  due (History, Notifications), say it plainly and once.
 
 ## 8 · Motion
 
