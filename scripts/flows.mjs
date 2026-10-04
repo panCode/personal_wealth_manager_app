@@ -44,7 +44,12 @@ await section("core", async (page) => {
   await go(page, "/home");
   const thing = page.getByRole("link", { name: /One thing this week/ });
   c.check("one thing shows the rebalance", /Rebalance/.test((await thing.getAttribute("aria-label")) ?? ""));
-  c.check("two deltas under the number", (await page.getByText("this month", { exact: true }).count()) === 1 && (await page.getByText("all time", { exact: true }).count()) === 1);
+  const roll = page.locator('button[aria-label*="this month"]');
+  c.check("rolling figure lists month, all time and a year", /this month.*all time.*a year/.test((await roll.getAttribute("aria-label")) ?? ""));
+  c.check("rolling figure starts on this month", (await roll.locator(".roll-in, span").first().textContent())?.includes("1.2L") === true);
+  await roll.click();
+  await page.waitForTimeout(600);
+  c.check("tap rolls to all time", (await roll.getByText("all time").count()) === 1);
   c.check("no words about the plan under the number", (await page.getByText(/needs a nudge|On plan\./).count()) === 0);
   c.check("nothing red or amber on Home", (await page.locator('[class*="attn"], [class*="danger"]').count()) === 0);
   await thing.click();

@@ -23,9 +23,8 @@ in `DESIGN.md` §1.3.
 ```
 ┌───────────────────────────────────┐
 │ 1 SKY BAND                        │  time-of-day gradient, the gear,
-│   ₹48.6L                          │  the one number, two deltas
-│   +₹1.2L this month · +₹22.7L     │
-│   all time                        │
+│   ₹48.6L                          │  the one number, one rolling figure
+│   +₹1.2L this month   ⟳ 3.2 s     │  → +₹22.7L all time → 14.2% a year
 ├───────────────────────────────────┤
 │ 2 ONE THING THIS WEEK             │  ochre card; absent when nothing is pending
 ├───────────────────────────────────┤
@@ -50,11 +49,13 @@ over") stays, muted, under block 4.
   number, the verdict and the line. Nothing else.
 - The number: `persona.netWorth.total` → `inr()` → "₹48.6L". Count-up on first
   paint, 450ms, skipped under reduced motion.
-- Under the number, two deltas and nothing else (decided 4 Oct): this month
-  (`persona.netWorth.monthChange`) and all time (`persona.netWorth.allTimeChange`,
-  the same figure as `portfolio.gains`, so Home and Performance agree). Signed,
-  in ink, never coloured. No sentence about the plan, no count of nudges; the
-  plan's state lives in Plan.
+- Under the number, one figure at a time, rolling every 3.2 s (decided 4 Oct;
+  `components/RollingStat.tsx`, data from `heroStats()` in `lib/home.ts`):
+  this month (`persona.netWorth.monthChange`) → all time
+  (`persona.netWorth.allTimeChange`, the same figure as `portfolio.gains`, so
+  Home and Performance agree) → a year (`portfolio.xirr3y`, after fees). A tap
+  moves it on. Signed, in ink, never coloured. Under reduced motion the three
+  sit side by side. No sentence about the plan, no count of nudges.
 - P1 settled: number-first, as drawn above.
 - A 12-month line (`persona.sparkline`), 60px tall, no axes, no dots, single
   `accent` stroke, never red.

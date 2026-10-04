@@ -29,12 +29,18 @@ export function oneThing(live: Live): Decision | null {
   return id ? decisions[id] : null;
 }
 
-/** "+₹1.2L this month · +₹22.7L all time": two numbers, no words about the plan. */
-export function deltas(): Array<{ value: string; label: string }> {
-  const sign = (n: number) => (n > 0 ? "+" : n < 0 ? "−" : "");
+/**
+ * The figures that roll under the hero number, in order: this month, all
+ * time, and the money-weighted return. Signed, never coloured, no words about
+ * the plan. The all-time figure is the portfolio's gains, so it matches
+ * Portfolio › Performance.
+ */
+export function heroStats(): Array<{ value: string; label: string }> {
+  const signed = (n: number) => `${n > 0 ? "+" : n < 0 ? "−" : ""}${inr(Math.abs(n))}`;
   return [
-    { value: `${sign(persona.netWorth.monthChange)}${inr(Math.abs(persona.netWorth.monthChange))}`, label: "this month" },
-    { value: `${sign(persona.netWorth.allTimeChange)}${inr(Math.abs(persona.netWorth.allTimeChange))}`, label: "all time" },
+    { value: signed(persona.netWorth.monthChange), label: "this month" },
+    { value: signed(persona.netWorth.allTimeChange), label: "all time" },
+    { value: `${persona.portfolio.xirr3y.toFixed(1)}%`, label: "a year, after fees" },
   ];
 }
 

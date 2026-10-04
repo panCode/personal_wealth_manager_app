@@ -11,7 +11,7 @@ accountable.
 
 ## 0 · Decisions (all settled, 1 Oct 2026)
 
-- **P1 Home hero: number-first.** Big ₹ net worth; under it two signed deltas, this month and all time, and no words about the plan (4 Oct). No date, no greeting in the band.
+- **P1 Home hero: number-first.** Big ₹ net worth; under it one rolling figure, this month → all time → a year (XIRR, after fees), 3.2 s apart, a tap moves it on; no words about the plan (4 Oct). No date, no greeting in the band.
 - **P2 Bottom tabs: 4** — Home · Portfolio · Plan · Ask. Activity becomes "History", reached from Settings (the gear on Home) and from the "placed/settled" rows in What moved.
 - **P3 Direction: B, dusk & cream.** Cream page; the sky band on Home follows the clock and goes dark only at night. Samples that were chosen: `spec/HomeV2B.dc.html`, `spec/HomeV2BCalm.dc.html`.
 - **P4 Built in the cloud session**, one phase per commit on `design-v2`; Nikhil reviews on the Vercel preview and his phone.
@@ -100,7 +100,8 @@ Never colour a number by its sign: a negative return is written in words, in ink
 
 - One number per card; at most three on a screen above the fold.
 - Monthly cadence on Home ("this month"); no 1-day change anywhere on Home.
-- No scores, no percentages on Home. Percentages live in Portfolio and Plan.
+- No scores on Home. The only percentage on Home is the money-weighted return
+  in the hero's rolling figure; every other percentage lives in Portfolio and Plan.
 - Every ₹ figure comes from `lib/persona.ts`, `lib/goals.ts` or
   `lib/scenarios.ts`. Never type a number into a screen that the lib can
   compute; the lib is the source of truth and the formulas must agree across
@@ -121,8 +122,9 @@ Never colour a number by its sign: a negative return is written in words, in ink
 ## 8 · Motion
 
 - 300–450ms, ease-out. Numbers count up gently on first paint; the sky drifts
-  slowly; drawers slide. Nothing bounces, pulses or shakes.
-- Respect `prefers-reduced-motion`: no count-up, no drift.
+  slowly; drawers slide; the hero figure rolls up to the next one every 3.2 s
+  (`RollingStat`). Nothing bounces, pulses or shakes.
+- Respect `prefers-reduced-motion`: no count-up, no drift, and the hero figures sit side by side instead of rolling.
 
 ## 9 · Components
 
@@ -132,7 +134,8 @@ Segmented, OptionGroup, Button, ProgressBar, Avatar. Plus BottomNav, Drawer,
 Feedback, InstallBanner, PhoneFrame, inputs (MoneyInput), portfolio header.
 
 Added in v2: `SkyBand` (time-of-day gradient, sun/moon, hills; `--sky-line` for
-the sparkline colour), `CountUp` (unit-stable rupee count-up), and in
+the sparkline colour), `CountUp` (unit-stable rupee count-up), `RollingStat`
+(one figure at a time, rolling; static under reduced motion), and in
 `app/home/page.tsx` the one-thing card, the What-moved rows and the Ask block,
 fed by `lib/home.ts` (pure: `oneThing`, `verdict`, `whatMoved`).
 
