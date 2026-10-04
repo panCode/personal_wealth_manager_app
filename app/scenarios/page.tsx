@@ -75,13 +75,13 @@ export default function Scenarios() {
                 {g.items.map((p) =>
                   p.soon ? (
                     <div key={p.id} className="flex min-h-[104px] flex-col gap-2 rounded-card border border-dashed border-line-3 bg-surface p-3.5 opacity-70">
-                      <span className={p.attn ? "text-attn" : "text-accent"}>{p.icon}</span>
+                      <span className="text-accent">{p.icon}</span>
                       <span className="text-[14px] font-bold">{p.name}</span>
                       <span className="text-[12px] text-muted">Coming soon</span>
                     </div>
                   ) : (
                     <Link key={p.id} href={`/simulate/${p.id}`} onClick={() => track("scenario_open", { id: p.id })} className={cx("flex min-h-[104px] flex-col gap-2 rounded-card border border-line bg-surface p-3.5 text-ink")}>
-                      <span className={p.attn ? "text-attn" : "text-accent"}>{p.icon}</span>
+                      <span className="text-accent">{p.icon}</span>
                       <span className="text-[14px] font-bold">{p.name}</span>
                       <span className="text-[12px] text-muted">{p.sub}</span>
                     </Link>

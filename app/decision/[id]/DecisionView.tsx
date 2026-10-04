@@ -93,7 +93,7 @@ export function DecisionView({ decision: d }: { decision: Decision }) {
       </Screen>
       <Footer>
         {done ? (
-          <Button href="/activity" variant="dark">See it in Activity</Button>
+          <Button href="/activity" variant="dark">See it in History</Button>
         ) : (
           <>
             <Button href={`/execute/${d.id}`}>

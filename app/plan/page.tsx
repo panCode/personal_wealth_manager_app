@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { BottomNav } from "@/components/BottomNav";
-import { Button, Card, Chip, Pill, ProgressBar, Row, RowText, Screen, SectionTitle } from "@/components/ui";
+import { ClockIcon, DocIcon, GrowthIcon, SwapIcon } from "@/components/icons";
+import { Button, Card, Chip, IconBox, Pill, ProgressBar, Row, RowText, Screen, SectionTitle } from "@/components/ui";
 import { inr, inrFull, monthYear } from "@/lib/format";
 import { useGoals } from "@/lib/useGoals";
 import { persona } from "@/lib/persona";
@@ -13,6 +14,7 @@ const p = persona;
 /** 8 · Plan & goals */
 export default function Plan() {
   const stepup = useStore((s) => s.decisions["stepup-1"]?.status ?? "proposed");
+  const rebalance = useStore((s) => s.decisions["rebalance-1"]?.status ?? "proposed");
   const retireFixed = stepup === "approved" || stepup === "placed" || stepup === "settled";
   const goals = useGoals();
   const emergencyBy = monthYear(`${goals.emergency.reach.year}-${String(goals.emergency.reach.month).padStart(2, "0")}-01`);
@@ -62,6 +64,33 @@ export default function Plan() {
               </Card>
             );
           })}
+
+          <div className="flex flex-col gap-2.5">
+            <SectionTitle>Next moves</SectionTitle>
+            <Card padded={false}>
+              <Row href="/decision/rebalance-1">
+                <IconBox tone={rebalance === "proposed" ? "attn" : "accent"}><SwapIcon size={16} /></IconBox>
+                <RowText title="Rebalance the drifted large-caps" sub="Keeps your risk where the plan set it" />
+                <Pill tone={rebalance === "proposed" ? "attn" : "accent"}>{rebalance === "proposed" ? "Approve" : rebalance === "declined" ? "Declined" : "Placed"}</Pill>
+              </Row>
+              <Row href="/decision/stepup-1">
+                <IconBox><GrowthIcon size={16} /></IconBox>
+                <RowText title={`Step up retirement SIP by ${inrFull(Math.max(goals.retire.shortBy, 4_000))} in October`} sub="Timed to your salary revision. Closes the gap." />
+                <Pill tone="accent">{stepup === "proposed" ? "Set up" : stepup === "declined" ? "Declined" : "Done"}</Pill>
+              </Row>
+              <Row href="/ask?q=tax-save">
+                <IconBox><DocIcon size={16} /></IconBox>
+                <RowText title={`Save ${inrFull(p.tax.morePossible)} more tax this year`} sub={p.tax.notes} />
+                <Pill tone="accent">See how</Pill>
+              </Row>
+              <Row last>
+                <IconBox tone="neutral"><ClockIcon size={16} /></IconBox>
+                <RowText title="Move ₹2.2L regular-plan fund to direct" sub="Saves about ₹2,400 a year in fees. Lock-in ends March." />
+                <Pill>Mar 2027</Pill>
+              </Row>
+            </Card>
+            <span className="text-[12px] leading-[1.45] text-muted">Every day we watch your funds, SIPs, EMIs and tax rules. You only hear from us when there’s a decision worth your minute.</span>
+          </div>
 
           <div className="flex flex-col gap-2.5">
             <SectionTitle>Protection</SectionTitle>

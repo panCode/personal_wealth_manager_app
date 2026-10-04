@@ -37,7 +37,11 @@ export const persona = {
     return this.income.monthly + this.income.other - this.expenses.monthly;
   },
 
-  netWorth: { total: 4_860_000, assets: 9_090_000, loans: 4_230_000, monthChange: 120_000, monthChangePct: 2.5 },
+  /** `allTimeChange` is what the money has earned since the first rupee went in:
+   *  the same figure as portfolio.gains, so Home and Performance never disagree. */
+  netWorth: { total: 4_860_000, assets: 9_090_000, loans: 4_230_000, monthChange: 120_000, monthChangePct: 2.5, investmentsChange: 94_000, allTimeChange: 2_270_000 },
+  /** Day of the month every SIP runs. */
+  sipDay: 5,
   sparkline: [2, 30, 34, 32, 22, 24, 14, 16, 6],
 
   loans: [{ id: "home", label: "Home loan", lender: "SBI", outstanding: 4_230_000, rate: 8.6, emi: 38_400, yearsLeft: 14, dueDay: 5 }],
@@ -215,6 +219,12 @@ export const persona = {
     month: "September",
     total: 78_400,
     usual: 83_000,
+    /** Monthly totals, oldest first. The Ask answer "spends-3m" quotes these. */
+    history: [
+      { month: "Jul", total: 84_100 },
+      { month: "Aug", total: 81_300 },
+      { month: "Sep", total: 78_400 },
+    ],
     categories: [
       { key: "emi", label: "EMI", amount: 38_400, change: "same", color: "#16201D" },
       { key: "household", label: "Household & bills", amount: 24_100, change: "−14%", changeTone: "accent", color: "#0E6B55" },

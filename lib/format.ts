@@ -62,3 +62,18 @@ export function greeting(d = new Date()): string {
   if (h < 17) return "Good afternoon";
   return "Good evening";
 }
+
+/**
+ * A formatter pinned to the unit of `anchor`, so a count-up never flickers
+ * between ₹4,86,000 and ₹48.6L. At the anchor itself it matches `inr()`.
+ */
+export function inrLike(anchor: number): (n: number) => string {
+  const abs = Math.abs(anchor);
+  if (abs >= 1e7) {
+    const d = abs / 1e7 >= 10 ? 1 : 2;
+    return (n) => `₹${trim(n / 1e7, d)} Cr`;
+  }
+  if (abs >= 1e5) return (n) => `₹${trim(n / 1e5, 1)}L`;
+  if (abs >= 1e3) return (n) => `₹${trim(n / 1e3, 1)}k`;
+  return (n) => `₹${groupIndian(Math.round(n))}`;
+}

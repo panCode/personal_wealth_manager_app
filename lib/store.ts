@@ -71,7 +71,8 @@ type Actions = {
   approve: (id: string) => void;
   decline: (id: string, note?: string) => void;
   place: (id: string) => void;
-  settle: (id: string) => void;
+  /** `at` is the ISO moment it settled; defaults to now. */
+  settle: (id: string, at?: string) => void;
   label: (txnId: string, label: string) => void;
   addSpend: (s: Omit<ExtraSpend, "id" | "at">) => void;
   addFeedback: (text: string, screen: string) => void;
@@ -117,7 +118,7 @@ export const useStore = create<State & Actions>()(
         set((s) => ({ decisions: { ...s.decisions, [id]: { status: "placed", at: now() } } }));
         get().track("order_placed", { id });
       },
-      settle: (id) => set((s) => ({ decisions: { ...s.decisions, [id]: { status: "settled", at: now() } } })),
+      settle: (id, at) => set((s) => ({ decisions: { ...s.decisions, [id]: { status: "settled", at: at ?? now() } } })),
       label: (txnId, label) => {
         set((s) => ({ labels: { ...s.labels, [txnId]: label } }));
         get().track("spend_labelled", { txnId, label });

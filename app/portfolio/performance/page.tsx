@@ -53,7 +53,7 @@ export default function PortfolioPerformance() {
               {pf.movers.map((m, i) => (
                 <Row key={m.name} last={i === pf.movers.length - 1}>
                   <RowText title={m.name} sub={m.sub} />
-                  <span className={`text-[13px] font-bold ${m.amount < 0 ? "text-danger" : "text-accent"}`}>{m.amount < 0 ? "−" : "+"}{inr(Math.abs(m.amount))}</span>
+                  <span className="text-[13px] font-bold text-ink">{m.amount < 0 ? "−" : "+"}{inr(Math.abs(m.amount))}</span>
                 </Row>
               ))}
             </Card>

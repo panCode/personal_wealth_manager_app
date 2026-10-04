@@ -21,7 +21,7 @@ export default function WhatsApp() {
     rebalance === "proposed"
       ? { from: "cfo", time: "8:02 AM", text: "Morning, Aditya. One decision needs you today: move ₹1.2L from Bluechip Large-cap to Flexi-cap. Large-caps drifted to 41% of equity, plan says 35%. Meera has reviewed it. Tax ₹0.", cta: { label: "Review in app", href: "/decision/rebalance-1" } }
       : { from: "cfo", time: "8:02 AM", text: rebalance === "declined" ? "Noted, you declined the rebalance. Nothing changed; we'll revisit at the next review." : "Your rebalance is with the exchange. Units settle by 1 Oct; we'll message you when they land." },
-    { from: "cfo", time: "10:15 AM", text: "Done: your SIP of ₹35,000 went through, split across your 3 goals. Nothing to do." },
+    { from: "cfo", time: "10:15 AM", text: "Done: your SIP of ₹60,000 went through, split across your 3 goals. Nothing to do." },
     { from: "you", time: "3:41 PM", text: "Market fell today. Should I do anything?" },
     { from: "cfo", time: "3:42 PM", text: <>No. Nifty fell 1.8%. Your equity is for 2031 and beyond, and the plan assumes swings like this. If it falls 10% or more, we&apos;d bring you a buy decision, not a sell.<br /><br />Want Meera to call you? Reply CALL.</> },
     { from: "you", time: "3:44 PM", text: "CALL" },

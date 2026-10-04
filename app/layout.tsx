@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import "@fontsource-variable/fraunces/opsz.css";
+import "@fontsource-variable/fraunces/full.css";
 import "@fontsource-variable/manrope";
 import "./globals.css";
 import { PhoneFrame } from "@/components/PhoneFrame";
@@ -33,8 +33,11 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
       <body>
-        <PhoneFrame>{children}</PhoneFrame>
+        {/* First in the tree so its effect runs before any screen's: a `set()`
+            before rehydration would persist the empty initial state over the
+            saved one (zustand persist with skipHydration). */}
         <StoreHydrator />
+        <PhoneFrame>{children}</PhoneFrame>
         <ServiceWorker />
       </body>
     </html>

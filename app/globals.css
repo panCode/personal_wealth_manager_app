@@ -18,11 +18,15 @@
   --color-accent-mid: #6fb79b;
   --color-accent-pale: #d9e4df;
   --color-accent-light: #9fd9c4;
-  --color-attn: #b4540a;
-  --color-attn-text: #8a3f06;
-  --color-attn-soft: #fbebd9;
-  --color-attn-line: #f0cfa8;
+  /* "attn" = for you: the warm ochre of the one-thing card, never an alarm */
+  --color-attn: #c2742a;
+  --color-attn-text: #7f4a12;
+  --color-attn-soft: #f6e7d3;
+  --color-attn-line: #ead2b4;
   --color-danger: #a8322b;
+  --color-ochre: #c2742a;
+  --color-ochre-text: #7f4a12;
+  --color-ochre-soft: #f6e7d3;
   --color-on-dark-muted: #b7c2bd;
   --color-chat-out: #d9efe3;
   --color-chat-bg: #ece7de;
@@ -30,9 +34,17 @@
   --font-display: "Fraunces Variable", Georgia, serif;
   --font-sans: "Manrope Variable", system-ui, sans-serif;
 
-  --radius-card: 14px;
-  --radius-card-lg: 16px;
+  --radius-card: 20px;
+  --radius-card-lg: 24px;
   --radius-btn: 14px;
+}
+
+/* Sky band gradients, by local time of day. Mood, never information. */
+:root {
+  --sky-dawn: linear-gradient(180deg, #f3d9c4 0%, #e9d6e4 58%, var(--color-ground) 100%);
+  --sky-day: linear-gradient(180deg, #d9e6ee 0%, #ecefe9 58%, var(--color-ground) 100%);
+  --sky-dusk: linear-gradient(180deg, #cdbfdf 0%, #e6d2ce 58%, var(--color-ground) 100%);
+  --sky-night: linear-gradient(180deg, #242a45 0%, #3f3a5e 52%, #8e7f96 82%, var(--color-ground) 100%);
 }
 
 html,
@@ -63,6 +75,18 @@ textarea {
 .font-display {
   font-family: var(--font-display);
   font-weight: 500;
+  font-variation-settings: "SOFT" 40, "WONK" 0;
+}
+/* Hero numbers: the softest, most display-like cut of Fraunces. */
+.display-soft {
+  font-variation-settings: "SOFT" 100, "WONK" 0, "opsz" 144;
+  letter-spacing: -0.01em;
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }
 
 .no-scrollbar::-webkit-scrollbar {

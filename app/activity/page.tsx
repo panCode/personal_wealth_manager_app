@@ -12,13 +12,13 @@ import { useStore } from "@/lib/store";
 type Item = { date: string; title: string; sub: React.ReactNode; live?: boolean };
 
 const history: Item[] = [
-  { date: "2026-09-20", title: "Monthly SIP ₹35,000 ran", sub: "Auto, as per plan · split across 3 goals" },
+  { date: "2026-09-05", title: "Monthly SIP ₹60,000 ran", sub: "Auto, as per plan · split across 3 goals" },
   {
     date: "2026-09-12",
     title: "Book a ₹40k loss on a midcap fund to offset gains",
     sub: (
       <>
-        Proposed by CFO · <strong className="text-attn-text">declined by you</strong> · &ldquo;I&rsquo;ll hold this one&rdquo;
+        Proposed by CFO · <strong className="text-ink-2">declined by you</strong> · &ldquo;I&rsquo;ll hold this one&rdquo;
       </>
     ),
   },
@@ -34,7 +34,7 @@ const history: Item[] = [
   { date: "2026-09-01", title: "Monthly review call with Meera · 20 min", sub: "Plan re-confirmed · notes and recording saved" },
 ];
 
-/** 11 · Activity & track record */
+/** 11 · History: every decision, who signed off, what settled. Reached from Settings and from What moved. */
 export default function ActivityPage() {
   return (
     <Suspense>
@@ -64,7 +64,7 @@ function Activity() {
           </>
         ) : (
           <>
-            Proposed by CFO · <strong className="text-attn-text">declined by you</strong>
+            Proposed by CFO · <strong className="text-ink-2">declined by you</strong>
           </>
         ),
       };
@@ -89,7 +89,7 @@ function Activity() {
           )}
 
           <div className="flex flex-col gap-1">
-            <h1 className="font-display text-[26px]">Activity</h1>
+            <h1 className="font-display text-[26px]">History</h1>
             <span className="text-[14px] text-ink-2">Everything your CFO did, and who signed off.</span>
           </div>
 
